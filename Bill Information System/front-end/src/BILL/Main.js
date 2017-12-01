@@ -487,8 +487,8 @@ class Search extends Component {
             <tr key={this.state.bills.indexOf(bill)}>
               <td id="tdbillno">{bill.Billno}</td>
               <td id="tdstatus">{bill.Status}</td>
-              <td id="tdprimarycommittee">{bill.primarycommittee}</td>
-              <td id="tdsecondarycommittee">{bill.secondarycommittee}</td>
+              <td id="tdprimarycommittee">{bill.Primarycommittee}</td>
+              <td id="tdsecondarycommittee">{bill.Secondarycommittee}</td>
               <td id="tdscope">{bill.Scope}</td>
               <td id="tdtitle">{bill.Title}</td>
               <td id="tdsummdesc">{bill.Summarydesc}</td>
@@ -599,8 +599,8 @@ class ShowAllBills extends Component {
             <tr key={this.state.bills.indexOf(bill)}>
               <td id="tdbillno">{bill.Billno}</td>
               <td id="tdstatus">{bill.Status}</td>
-              <td id="tdprimarycommittee">{bill.primarycommittee}</td>
-              <td id="tdsecondarycommittee">{bill.secondarycommittee}</td>
+              <td id="tdprimarycommittee">{bill.Primarycommittee}</td>
+              <td id="tdsecondarycommittee">{bill.Secondarycommittee}</td>
               <td id="tdscope">{bill.Scope}</td>
               <td id="tdtitle">{bill.Title}</td>
               <td id="tdsummdesc">{bill.Summarydesc}</td>

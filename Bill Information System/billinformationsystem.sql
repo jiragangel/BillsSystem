@@ -176,6 +176,7 @@ CREATE PROCEDURE DeleteBill ( billnumber varchar(10) )
       delete from HOUSEMEMBER_FILES where Billno=billnumber;
     END IF;
     delete from BILL where Billno=billnumber;
+    delete from BILL_SUBJECT where Billno=billnumber;
   END
 //
 delimiter ;
