@@ -417,7 +417,8 @@ class Search extends Component {
       key: "",
       value: "",
       bills: [],
-      bool: false
+      bool: false,
+      subjects: []
     };
   }
 
@@ -433,8 +434,46 @@ class Search extends Component {
     })
   }
 
+  loopSubjects(billno){
+      return(
+        <td>
+        {
+          this.state.subjects.map((subj) => {
+            if (subj.Billno === billno){
+              return(
+                <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+              )
+            }else{
+              return(
+                <p></p>
+              )
+            }
+          })
+        }
+        </td>
+      )
+    }
+
   submitClicked(e){
 		fetch(`http://localhost:3001/bills?key=${this.state.key}&value=${this.state.value}`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+			this.setState({ bills: result, key: "", billno: "", value: ""});
+		})
+		.catch((e) => { console.log(e); });
+
+		fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+  getSubjects(billno){
+		fetch(`http://localhost:3001/getSubjects`)
 		.then((response) => { return response.json()})
 		.then((result) => {
 			this.setState({ bills: result, key: "", billno: "", value: ""});
@@ -469,36 +508,50 @@ class Search extends Component {
       }
       <div id="searchResults">
         <h3>SEARCH RESULTS</h3>
-        <table>
-        <tbody>
-        <tr>
-          <th>Bill no</th>
-          <th>Status</th>
-          <th>Primary Committee</th>
-          <th>Secondary Committee</th>
-          <th>Scope</th>
-          <th>Title</th>
-          <th>Summary Description</th>
-          <th>Content</th>
-        </tr>
         {
           this.state.bills.map((bill) => {
             return(
-            <tr key={this.state.bills.indexOf(bill)}>
-              <td id="tdbillno">{bill.Billno}</td>
-              <td id="tdstatus">{bill.Status}</td>
-              <td id="tdprimarycommittee">{bill.Primarycommittee}</td>
-              <td id="tdsecondarycommittee">{bill.Secondarycommittee}</td>
-              <td id="tdscope">{bill.Scope}</td>
-              <td id="tdtitle">{bill.Title}</td>
-              <td id="tdsummdesc">{bill.Summarydesc}</td>
-              <td id="tdcontent">{bill.Content}</td>
-            </tr>
+            <table key={this.state.bills.indexOf(bill)}><tbody>
+              <tr>
+                <th>Billno</th>
+                <td>{bill.Billno}</td>
+              </tr>
+              <tr>
+                <th>Status</th>
+                <td>{bill.Status}</td>
+              </tr>
+              <tr>
+                <th>Subjects</th>
+                {this.loopSubjects(bill.Billno)}
+              </tr>
+              <tr>
+                <th>Title</th>
+                <td>{bill.Title}</td>
+              </tr>
+              <tr>
+                <th>Primary Committee</th>
+                <td>{bill.Primarycommittee}</td>
+              </tr>
+              <tr>
+                <th>Seconday Committee</th>
+                <td>{bill.Secondarycommittee}</td>
+              </tr>
+              <tr>
+                <th>Scope</th>
+                <td>{bill.Scope}</td>
+              </tr>
+              <tr>
+                <th>Summary Description</th>
+                <td>{bill.Summarydesc}</td>
+              </tr>
+              <tr>
+                <th>Content</th>
+                <td>{bill.Content}</td>
+              </tr>
+            </tbody></table>
             )
           })
         }
-        </tbody>
-      </table>
       </div>
       </div>
     )
@@ -563,7 +616,8 @@ class ShowAllBills extends Component {
     super(props);
     autobind(this);
     this.state={
-      bills: []
+      bills: [],
+      subjects: []
     };
   }
 
@@ -574,43 +628,88 @@ class ShowAllBills extends Component {
 			this.setState({ bills: result });
 		})
 		.catch((e) => { console.log(e); });
+
+		fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
   }
+
+  loopSubjects(billno){
+      return(
+        <td>
+        {
+          this.state.subjects.map((subj) => {
+            if (subj.Billno === billno){
+              return(
+                <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+              )
+            }else{
+              return(
+                <p></p>
+              )
+            }
+          })
+        }
+        </td>
+      )
+    }
 
   render(){
     return(
       <div>
       <div id="searchResults">
-        <h3>SEARCH RESULTS</h3>
-        <table>
-        <tbody>
-        <tr>
-          <th>Bill no</th>
-          <th>Status</th>
-          <th>Primary Committee</th>
-          <th>Secondary Committee</th>
-          <th>Scope</th>
-          <th>Title</th>
-          <th>Summary Description</th>
-          <th>Content</th>
-        </tr>
+        <h3>ALL BILLS</h3>
         {
           this.state.bills.map((bill) => {
             return(
-            <tr key={this.state.bills.indexOf(bill)}>
-              <td id="tdbillno">{bill.Billno}</td>
-              <td id="tdstatus">{bill.Status}</td>
-              <td id="tdprimarycommittee">{bill.Primarycommittee}</td>
-              <td id="tdsecondarycommittee">{bill.Secondarycommittee}</td>
-              <td id="tdscope">{bill.Scope}</td>
-              <td id="tdtitle">{bill.Title}</td>
-              <td id="tdsummdesc">{bill.Summarydesc}</td>
-              <td id="tdcontent">{bill.Content}</td>
-            </tr>
+            <table>
+            <tbody>
+              <tr>
+                <th>Billno</th>
+                <td>{bill.Billno}</td>
+              </tr>
+              <tr>
+                <th>Status</th>
+                <td>{bill.Status}</td>
+              </tr>
+              <tr>
+                <th>Subjects</th>
+                {this.loopSubjects(bill.Billno)}
+              </tr>
+              <tr>
+                <th>Title</th>
+                <td>{bill.Title}</td>
+              </tr>
+              <tr>
+                <th>Primary Committee</th>
+                <td>{bill.Primarycommittee}</td>
+              </tr>
+              <tr>
+                <th>Seconday Committee</th>
+                <td>{bill.Secondarycommittee}</td>
+              </tr>
+              <tr>
+                <th>Scope</th>
+                <td>{bill.Scope}</td>
+              </tr>
+              <tr>
+                <th>Summary Description</th>
+                <td>{bill.Summarydesc}</td>
+              </tr>
+              <tr>
+                <th>Content</th>
+                <td>{bill.Content}</td>
+              </tr>
+            </tbody>
+            </table>
             )
           })
         }
-        </tbody>
-      </table>
       </div>
       </div>
     )

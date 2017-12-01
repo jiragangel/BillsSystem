@@ -68,3 +68,10 @@ exports.getAllbills = (req, res, next) => {
 exports.mainPage = (req, res, next) => {
 	res.send("Welcome to Home Page");
 }
+
+exports.getSubjects = (req, res, next) => {
+	const queryline = "select * from BILL_SUBJECT;";
+	db.query(queryline, [], (err, result) => {
+		res.send(result);
+	});
+}

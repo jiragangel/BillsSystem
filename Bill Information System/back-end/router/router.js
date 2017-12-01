@@ -10,6 +10,7 @@ module.exports = (router) => {
 	router.post('/fileBillForSenator', bills.fileBillForSenator);
 	router.post('/deleteBills', bills.deleteBills);
 	router.get('/getAllbills', bills.getAllbills);
+	router.get('/getSubjects', bills.getSubjects);
 	router.get('/',bills.mainPage);
 
 	return router;
