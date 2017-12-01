@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css?family=Arvo');
+
+* {
+  font-family:sans-serif;
+  border:none;
+  color:#3b3a36;
+  font-family:'Arvo';
+  text-align: center;
+}
+
+body {
+  background-color: #e9ece5;
+}
+
+fieldset {
+  width:30%;
+  margin:0 auto;
+  height:auto;
+}
+
+nav{
+  clear:both;
+}
+
+#navigator {
+  width:100%
+}
+
+.tabs {
+  width: 200px;
+  border:none;
+  background: none
+}
+
+select, input, textarea {
+  background-color:white;
+  margin-bottom:5px;
+  width:300px;
+  padding:10px;
+  border-radius:5px;
+  border: solid 1px black;
+  resize:none;
+}
+
+textarea {
+  height:200px;
+}
+h6 {
+  clear:both;
+}
+
+#headerNav {
+  width:100%;
+}
+
+#headerNav a {
+  width:20%;
+  float:left;
+  text-decoration: none;
+  background-color: #c0dfd9;
+}
+
+#headerNav a:hover h3 {
+  text-decoration: underline;
+}
+
+#billNav input {
+  margin:5px;
+  background-color: #b3c2bf;
+  border-radius: 0;
+  color:#3b3a36
+}
+
+#prompt {
+  width:100%;
+  margin:0px;
+}
+
+section {
+  border: solid 1px black;
+  margin:5px;
+  text-align: left;
+}
+
+table, th, td {
+  border: 1px solid black;
+  width:100%;
+  font-size: 12px;
+}
+
+th,td {
+  padding:5px;
+  text-align: left;
+  width:auto
+}
+
+[type~=button] {
+  background-color: #3b3a36;
+  color:white
+}
