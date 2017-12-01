@@ -10,14 +10,33 @@ exports.viewBills = (req, res, next) => {
 	})
 };
 exports.fileBillForSenator=(req,res,next)=>{
-	const queryline="call Filebillsenator ('"  + req.body.empno + "','" + req.body.billno + "'," + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.content + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "')";
+	let queryline;
+
+	let arrayofSubjects = req.body.subjects.split(';');
+	for (let i = 0 ; i < arrayofSubjects.length ; i++){
+		queryline = "insert into BILL_SUBJECT values ('" + req.body.billno + "','" + arrayofSubjects[i] + "');"
+		console.log(queryline);
+		db.query(queryline,[],(err,result)=>{
+			if (err) res.send(err);
+		});
+	}
+	queryline = "call Filebillsenator ('"  + req.body.empno + "','" + req.body.billno + "'," + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.content + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "')";
 	console.log(queryline);
 	db.query(queryline,[],(err,result)=>{
 		res.send(result);
 	});
 };
 exports.fileBillForHouseMem=(req,res,next)=>{
-	const queryline="call Filebillhousemem ('"  + req.body.empno + "','" + req.body.billno + "'," + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.content + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "')";
+	let queryline;
+	let arrayofSubjects = req.body.subjects.split(';');
+	for (let i = 0 ; i < arrayofSubjects.length ; i++){
+		queryline = "insert into BILL_SUBJECT values ('" + req.body.billno + "','" + arrayofSubjects[i] + "');"
+		console.log(queryline);
+		db.query(queryline,[],(err,result)=>{
+			if (err) res.send(err);
+		});
+	}
+	queryline = "call Filebillhousemem ('"  + req.body.empno + "','" + req.body.billno + "'," + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.content + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "')";
 	console.log(queryline);
 	db.query(queryline,[],(err,result)=>{
 		res.send(result);

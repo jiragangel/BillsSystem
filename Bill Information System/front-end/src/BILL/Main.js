@@ -154,7 +154,7 @@ class FileBillSenator extends Component {
 
   handleSetSubjects(e){
     this.setState({
-      subjects: e.target.value.split(';')
+      subjects: e.target.value
     });
   }
 
@@ -275,7 +275,7 @@ class FileBillHouseMem extends Component {
 
   handleSetSubjects(e){
     this.setState({
-      subjects: e.target.value.split(';')
+      subjects: e.target.value
     });
   }
 
