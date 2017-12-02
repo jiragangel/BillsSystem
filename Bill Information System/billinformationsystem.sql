@@ -424,6 +424,7 @@ insert into SENATOR_COMMITTEE values(
 call FileBillSenator (
   "0002",
   "SB 1598",
+  "Maria Lourdes Nancy Binay",
   2017,
   "Pending in the Committee",
   "Batas Kasambahay Social Security Condonation Law of 2017",
