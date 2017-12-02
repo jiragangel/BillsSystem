@@ -125,6 +125,15 @@ exports.getCommittees = (req, res, next) => {
 	});
 }
 
+exports.senatebillyear = (req, res, next) => {
+	const queryline =  "select * from BILL natural join SENATOR_FILES where Year=" + req.query.year + ';';
+	console.log(queryline);
+	db.query(queryline,[],(err, result) => {
+		if (err) res.send(err);
+		else res.send(result);
+	});
+}
+
 exports.addSenator = (req, res, next) => {
 	let queryline;
 	let arrayOfComm = req.body.committee.split(';');

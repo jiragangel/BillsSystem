@@ -79,16 +79,8 @@ create table BILL(
   Semployeenumber varchar(10),
   Housemem_flag int(1),
   Hemployeenumber varchar(10),
-<<<<<<< HEAD
-  CONSTRAINT BILL_Billno_pk PRIMARY KEY(Billno),
-  CONSTRAINT BILL_Semployeenumber_fk FOREIGN KEY(Semployeenumber) REFERENCES SENATOR(Employeenumber),
-  CONSTRAINT BILL_Hemployeenumber_fk FOREIGN KEY(Hemployeenumber) REFERENCES HOUSEMEMBER(Employeenumber)
-);
-
-=======
   CONSTRAINT BILL_Billno_pk PRIMARY KEY(Billno)
 );
->>>>>>> ec8195e82bba4273156b77deedf00eae08009afb
 
 delimiter //
 CREATE PROCEDURE Filebillhousemem (
@@ -105,11 +97,7 @@ secondaryC varchar(50)
 )
 BEGIN
 insert into HOUSEMEMBER_FILES values (empno, billno, year);
-<<<<<<< HEAD
-insert into BILL values (billno, status, title, summarydesc,primaryC, scope, secondaryC, NULL, NULL, 1, empno);
-=======
 insert into BILL values (billno, status, title, name, summarydesc, content, primaryC, scope, secondaryC, NULL, NULL, 1, empno);
->>>>>>> ec8195e82bba4273156b77deedf00eae08009afb
 END
 //
 delimiter ;
@@ -147,8 +135,6 @@ CREATE PROCEDURE DeleteBill ( billnumber varchar(10) )
   END
 //
 delimiter ;
-
-<<<<<<< HEAD
 
 -- INSERT VALUES
 insert into SENATOR values (
@@ -513,7 +499,7 @@ insert into BILL_SUBJECT values(
   "SB 1622",
   "Parking Space"
 );
-FileBillSenator (
+call FileBillSenator (
   "0004",
   "SB 1622",
   2017,
@@ -533,7 +519,7 @@ insert into BILL_SUBJECT values(
   "Food Establishments"
 );
 
-FileBillSenator (
+call FileBillSenator (
   "0006",
   "SB 1619",
   2017,
@@ -549,11 +535,6 @@ insert into BILL_SUBJECT values(
   "Anti-Discrimination"
 );
 
-
-
-
-
-=======
 delimiter //
 CREATE PROCEDURE DeleteSenator ( empno varchar(10) )
   BEGIN
@@ -562,4 +543,3 @@ CREATE PROCEDURE DeleteSenator ( empno varchar(10) )
   END
 //
 delimiter ;
->>>>>>> ec8195e82bba4273156b77deedf00eae08009afb
