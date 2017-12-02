@@ -75,3 +75,19 @@ exports.getSubjects = (req, res, next) => {
 		res.send(result);
 	});
 }
+
+exports.getSenators = (req, res, next) => {
+	const queryline =  "select * from SENATOR;";
+	db.query(queryline,[],(err, result) => {
+		if (err) res.send(err);
+		else res.send(result);
+	});
+}
+
+exports.getHouseMems = (req, res, next) => {
+	const queryline =  "select * from HOUSEMEMBER;";
+	db.query(queryline,[],(err, result) => {
+		if (err) res.send(err);
+		else res.send(result);
+	});
+}

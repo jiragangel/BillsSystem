@@ -23,41 +23,6 @@ const showField = (fieldname) => {
   }
 }
 
-const showPrompt = (bool) => {
-  if (bool){
-    return(
-      <Prompt
-        prompt="Success"
-      />
-    )
-  }else{
-    return(
-      <Prompt
-        prompt=""
-      />
-    )
-  }
-}
-
-class Prompt extends Component{
-  constructor(props){
-    super(props)
-    autobind(this)
-
-    this.state = {
-      prompt: props.prompt
-    }
-  }
-
-  render(){
-    return(
-      <div id="prompt">
-        {this.state.prompt}
-      </div>
-    )
-  }
-}
-
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -107,14 +72,25 @@ class FileBillSenator extends Component {
       subjects:"",
       summdesc:"",
       content:"",
+      senators: []
     };
+  }
+
+  getEmpno(name){
+    for (let i = 0 ; i < this.state.senators.length ; i++){
+      if (name === this.state.senators[i].Name){
+        return this.state.senators[i].Employeenumber
+      }
+      return;
+    }
   }
 
   handleSetEmpNo(e){
     this.setState({
-      empno:e.target.value
+      empno: this.getEmpno(e.target.value)
     });
    }
+
    handleSetYear(e){
     this.setState({
       year:e.target.value
@@ -170,6 +146,15 @@ class FileBillSenator extends Component {
     });
   }
 
+  componentDidMount(){
+		fetch(`http://localhost:3001/getSenators`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+			this.setState({ senators: result });
+		})
+		.catch((e) => { console.log(e); });
+  }
+
   submitAdd(e){
     fetch('http://www.localhost:3001/fileBillForSenator',{
       method:'POST',
@@ -193,7 +178,16 @@ class FileBillSenator extends Component {
         <fieldset id="add">
         <h3>File Bill For Senator</h3>
         <form>
-          <input onChange={this.handleSetEmpNo} placeholder="Employee Number"></input>
+          <select onChange={this.handleSetEmpNo}>
+            <option selected disabled>Senator</option>
+            {
+              this.state.senators.map((senators) => {
+                return(
+                  <option value={senators.Name}>{senators.Name}</option>
+                )
+              })
+            }
+          </select>
           <input onChange={this.handleSetBillNo} placeholder="Bill Number"></input>
           <input onChange={this.handleSetYear} placeholder="Year"></input>
           <input onChange={this.handleSetStatus} placeholder="Status"></input>
@@ -228,12 +222,13 @@ class FileBillHouseMem extends Component {
       subjects:"",
       summdesc:"",
       content:"",
+      housemems: []
     };
   }
 
   handleSetEmpNo(e){
     this.setState({
-      empno:e.target.value
+      empno: this.getEmpno(e.target.value)
     });
    }
    handleSetYear(e){
@@ -291,8 +286,25 @@ class FileBillHouseMem extends Component {
     });
   }
 
+  getEmpno(name){
+    for (let i = 0 ; i < this.state.housemems.length ; i++){
+      if (name === this.state.housemems[i].Name){
+        return this.state.housemems[i].Employeenumber
+      }
+      return;
+    }
+  }
+
+  componentDidMount(){
+    fetch(`http://localhost:3001/getHouseMems`)
+    .then((response) => { return response.json()})
+    .then((result) => {
+      this.setState({ housemems: result });
+    })
+    .catch((e) => { console.log(e); });
+  }
+
   submitAdd(e){
-    console.log("File for senator: " + this.state);
     fetch('http://www.localhost:3001/fileBillForHouseMem',{
       method:'POST',
       headers:{
@@ -315,7 +327,16 @@ class FileBillHouseMem extends Component {
         <fieldset id="add">
         <h3>File Bill For House Member</h3>
         <form>
-          <input onChange={this.handleSetEmpNo} placeholder="Employee Number"></input>
+          <select onChange={this.handleSetEmpNo}>
+            <option selected disabled>House Member</option>
+            {
+              this.state.housemems.map((hm) => {
+                return(
+                  <option value={hm.Name}>{hm.Name}</option>
+                )
+              })
+            }
+          </select>
           <input onChange={this.handleSetBillNo} placeholder="Bill Number"></input>
           <input onChange={this.handleSetYear} placeholder="Year"></input>
           <input onChange={this.handleSetStatus} placeholder="Status"></input>
@@ -341,7 +362,8 @@ class Update extends Component {
     this.state={
       key: "",
       billno: "",
-      value: ""
+      value: "",
+      bills: []
     };
 
     this.prompt=""
@@ -366,7 +388,6 @@ class Update extends Component {
   }
 
   submitUpdate(e){
-    console.log(this.state);
     fetch('http://www.localhost:3001/updateBills', {
       method: 'POST',
       headers: {
@@ -382,14 +403,33 @@ class Update extends Component {
     });
   }
 
+  componentDidMount(){
+  		fetch(`http://localhost:3001/getAllbills`)
+  		.then((response) => { return response.json()})
+  		.then((result) => {
+        this.setState({
+          bills: result
+        })
+  		})
+  }
+
   render(){
     return(
       <fieldset id="updateSearch">
         <h3>Update</h3>
         <form>
+          <select onChange={this.handleBillNoChange}>
+          <option selected disabled>Bill Number</option>
+          {
+            this.state.bills.map((b) => {
+              return(
+                <option value={b.Billno}>{b.Billno}</option>
+              )
+            })
+          }
+          </select>
           <select onChange={this.handleKeyChange}>
             <option selected disabled>Field to change</option>
-            <option>Billno</option>
             <option>Subjects</option>
             <option>Status</option>
             <option>Summarydesc</option>
@@ -399,11 +439,9 @@ class Update extends Component {
             <option>Scope</option>
             <option>Secondarycommittee</option>
           </select>
-          <input onChange={this.handleBillNoChange} placeholder="Enter Bill Number"></input>
           <textarea onChange={this.handleValueChange} placeholder="Enter new value"></textarea>
           <input type="button" onClick={this.submitUpdate} value="Update Bill"></input>
         </form>
-        <h6>{this.prompt}</h6>
       </fieldset>
     )
   }
@@ -503,9 +541,6 @@ class Search extends Component {
           <input type="button" onClick={this.submitClicked} value="Search Bill"></input>
         </form>
       </fieldset>
-      {
-        showPrompt(this.state.bool)
-      }
       <div id="searchResults">
         <h3>SEARCH RESULTS</h3>
         {
@@ -582,7 +617,6 @@ class Delete extends Component {
   }
 
   submitDelete(e){
-    console.log(this.state);
     fetch('http://www.localhost:3001/deleteBills', {
       method: 'POST',
       headers: {
@@ -598,14 +632,32 @@ class Delete extends Component {
     });
   }
 
+  componentDidMount(){
+  		fetch(`http://localhost:3001/getAllbills`)
+  		.then((response) => { return response.json()})
+  		.then((result) => {
+        this.setState({
+          bills: result
+        })
+  		})
+    }
+
   render(){
     return(
       <fieldset>
         <h3>Delete</h3>
         <form>
-          <input onChange={this.handleValueChange} placeholder="Bill number to delete"></input>
-          <input id="button" type="button" onClick={this.submitDelete} value="Delete Bill"></input>
-        </form>
+        <select>
+        <option selected disabled>Bill Number</option>
+        {
+          this.state.bills.map((b) => {
+            return(
+              <option value={b.Billno}>{b.Billno}</option>
+            )
+          })
+        }
+        </select>
+      </form>
       </fieldset>
     )
   }
