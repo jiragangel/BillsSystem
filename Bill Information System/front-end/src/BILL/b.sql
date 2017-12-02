@@ -1,144 +1,3 @@
-create database billinformationsystem;
-
-use billinformationsystem;
-
-create table SENATOR (
-  Employeenumber VARCHAR(10),
-  Name VARCHAR(50),
-  CONSTRAINT SENATOR_Employeenumber_pk PRIMARY KEY(Employeenumber)
-);
-
-
-create table SENATOR_COMMITTEE(
-  Employeenumber VARCHAR(10),
-  Committee VARCHAR(50),
-  CONSTRAINT SENATOR_POSITION_enamecom_pk PRIMARY KEY(Employeenumber,Committee)
-);
-
-create table BILL_SUBJECT(
-  Billno varchar(10),
-  Subject varchar(50),
-  CONSTRAINT BILL_SUBJECT_billnosubj_pk PRIMARY KEY(Billno,Subject)
-);
-
-create table HOUSEMEMBER(
-  Employeenumber VARCHAR(10),
-  Name VARCHAR(50),
-  Typeofrepresentative VARCHAR(20),
-  CONSTRAINT SENATOR_Employeenumber_pk PRIMARY KEY(Employeenumber)
-);
-
-
-create table HOUSEMEMBER_COMMITTEE(
-  Employeenumber VARCHAR(10),
-  Committee VARCHAR(50),
-  CONSTRAINT SENATOR_POSITION_enamecom_pk PRIMARY KEY(Employeenumber,Committee)
-);
-
-create table HOUSEMEMBER_FILES(
-  Employeenumber VARCHAR(10),
-  Billno VARCHAR(10),
-  Year int(4),
-  CONSTRAINT HMFILES_enumbillno_pk PRIMARY KEY(Employeenumber,Billno)
-);
-
-create table HOUSEMEMBER_APPROVES(
-  Employeenumber VARCHAR(10),
-  Billno VARCHAR(10),
-  CONSTRAINT HMFILES_enumbillno_pk PRIMARY KEY(Employeenumber,Billno)
-);
-
-create table SENATOR_FILES(
-  Employeenumber VARCHAR(10),
-  Billno VARCHAR(10),
-  Year int(4),
-  CONSTRAINT SFILES_enumbillno_pk PRIMARY KEY(Employeenumber,Billno)
-);
-
-create table SENATOR_APPROVES(
-  Employeenumber VARCHAR(10),
-  Billno VARCHAR(10),
-  CONSTRAINT SFILES_enumbillno_pk PRIMARY KEY(Employeenumber,Billno)
-);
-
-create table BILL(
-  Billno varchar(10),
-  Status varchar(50),
-  Title varchar(100),
-  Name varchar(50),
-  Summarydesc varchar(250),
-  Primarycommittee varchar(50),
-  Scope varchar(10),
-  Secondarycommittee varchar(50),
-  Senator_flag int(1),
-  Semployeenumber varchar(10),
-  Housemem_flag int(1),
-  Hemployeenumber varchar(10),
-
-  CONSTRAINT BILL_Billno_pk PRIMARY KEY(Billno),
-  CONSTRAINT BILL_Semployeenumber_fk FOREIGN KEY(Semployeenumber) REFERENCES SENATOR(Employeenumber),
-  CONSTRAINT BILL_Hemployeenumber_fk FOREIGN KEY(Hemployeenumber) REFERENCES HOUSEMEMBER(Employeenumber)
-);
-
-
-  CONSTRAINT BILL_Billno_pk PRIMARY KEY(Billno)
-);
-
-
-delimiter //
-CREATE PROCEDURE Filebillhousemem (
-empno varchar(10),
-billno varchar(10),
-name varchar(50),
-year int(4),
-status varchar(50),
-title varchar(100),
-summarydesc varchar(250),
-primaryC varchar(50),
-scope varchar(10),
-secondaryC varchar(50)
-)
-BEGIN
-insert into HOUSEMEMBER_FILES values (empno, billno, year);
-insert into BILL values (billno, status, title, name, summarydesc, content, primaryC, scope, secondaryC, NULL, NULL, 1, empno);
-
-END
-//
-delimiter ;
-
-delimiter //
-CREATE PROCEDURE Filebillsenator (
-empno varchar(10),
-billno varchar(10),
-name varchar(50),
-year int(4),
-status varchar(50),
-title varchar(100),
-summarydesc varchar(250),
-primaryC varchar(50),
-scope varchar(10),
-secondaryC varchar(50)
-)
-BEGIN
-insert into SENATOR_FILES values (empno, billno, year);
-insert into BILL values (billno, status, title, name, summarydesc, content, primaryC, scope, secondaryC, 1, empno, NULL, NULL);
-END
-//
-delimiter ;
-
-delimiter //
-CREATE PROCEDURE DeleteBill ( billnumber varchar(10) )
-  BEGIN
-    IF NOT (select Senator_flag from BILL where Billno=billnumber) is NULL THEN
-      delete from SENATOR_FILES where Billno=billnumber;
-    ELSE
-      delete from HOUSEMEMBER_FILES where Billno=billnumber;
-    END IF;
-    delete from BILL where Billno=billnumber;
-    delete from BILL_SUBJECT where Billno=billnumber;
-  END
-//
-delimiter ;
 
 -- INSERT VALUES
 insert into SENATOR values (
@@ -154,7 +13,7 @@ insert into SENATOR_COMMITTEE values(
   "Justice and Human Rights"
 );
 insert into SENATOR_COMMITTEE values(
-  "0001",
+  "0002",
   "Commission on Appointments"
 );
 
@@ -429,6 +288,27 @@ insert into SENATOR_COMMITTEE values(
   "Women, Children, Family Relations and Gender Equality"
 );
 
+insert into SENATOR values (
+  "0013",
+  "Francis G. Escudero"
+);
+insert into SENATOR_COMMITTEE values(
+  "0013",
+  "Accountability of Public Officers and Investigations"
+);
+insert into SENATOR_COMMITTEE values(
+  "0013",
+  "Agriculture and Food"
+);
+insert into SENATOR_COMMITTEE values(
+  "0013",
+  "Banks, Financial Institutions and Currencies"
+);
+insert into SENATOR_COMMITTEE values(
+  "0013",
+  "Climate Change"
+);
+
 
 FileBillSenator (
   "0002",
@@ -463,7 +343,6 @@ insert into BILL_SUBJECT values(
 FileBillSenator (
   "0003",
   "SB 1614",
-  "Joel Villanueva",
   2017,
   "Pending in the Committee",
   "Service Incentive Leave Of Employees",
@@ -484,7 +363,6 @@ insert into BILL_SUBJECT values(
 FileBillSenator (
   "0004",
   "SB 1622",
-  "Leila De Lima",
   2017,
   "Pending in the Committee",
   "Parking Space for Handicapped Persons Act of 2017",
@@ -508,7 +386,6 @@ insert into BILL_SUBJECT values(
 FileBillSenator (
   "0004",
   "SB 1622",
-  "Leila De Lima",
   2017,
   "Pending in the Committee",
   "Nutritional Information Disclosure Act of 2017",
@@ -526,7 +403,7 @@ insert into BILL_SUBJECT values(
   "Food Establishments"
 );
 
-call FileBillSenator (
+FileBillSenator (
   "0006",
   "SB 1619",
   2017,
@@ -536,19 +413,8 @@ call FileBillSenator (
   "Cultural Communities",
   "National",
   "Social Justice, Welfare and Rural Development",
-)
+);
 insert into BILL_SUBJECT values(
   "SB 1619",
   "Anti-Discrimination"
 );
-
-
-delimiter //
-CREATE PROCEDURE DeleteSenator ( empno varchar(10) )
-  BEGIN
-    delete from SENATOR where Employeenumber=empno;
-    delete from SENATOR_COMMITTEE where Employeenumber=empno;
-  END
-//
-delimiter ;
-
