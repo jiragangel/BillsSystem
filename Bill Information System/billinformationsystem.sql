@@ -541,3 +541,12 @@ CREATE PROCEDURE DeleteSenator ( empno varchar(10) )
   END
 //
 delimiter ;
+
+delimiter //
+CREATE PROCEDURE DeleteHouseMember ( empno varchar(10) )
+  BEGIN
+    delete from HOUSEMEMBER where Employeenumber=empno;
+    delete from HOUSEMEMBER_COMMITTEE where Employeenumber=empno;
+  END
+//
+delimiter ;

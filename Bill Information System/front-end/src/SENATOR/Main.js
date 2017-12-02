@@ -317,7 +317,7 @@ class SearchSenator extends Component {
 		})
 		.catch((e) => { console.log(e); });
 
-		fetch(`http://localhost:3001/getCommittees`)
+		fetch(`http://localhost:3001/getSenatorCommittees`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -389,7 +389,7 @@ class ShowAllSenators extends Component {
     .catch((e) => { console.log(e); });
 
 
-    fetch(`http://localhost:3001/getCommittees`)
+    fetch(`http://localhost:3001/getSenatorCommittees`)
     .then((response) => { return response.json()})
     .then((result) => {
       this.setState({ committees: result });
