@@ -29,7 +29,7 @@ exports.fileBillForSenator=(req,res,next)=>{
 			if (err) res.send(err);
 		});
 	}
-	queryline = "call Filebillsenator ('"  + req.body.empno + "','" + req.body.billno + "','" + req.body.name + "',"  + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.content + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "');";
+	queryline = "call Filebillsenator ('"  + req.body.empno + "','" + req.body.billno + "','" + req.body.name + "',"  + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "');";
 	console.log(queryline);
 	db.query(queryline,[],(err,result)=>{
 		res.send(result);
@@ -45,7 +45,7 @@ exports.fileBillForHouseMem=(req,res,next)=>{
 			if (err) res.send(err);
 		});
 	}
-	queryline = "call Filebillhousemem ('"  + req.body.empno + "','" + req.body.billno + "','" + req.body.name + "',"  + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.content + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "');";
+	queryline = "call Filebillhousemem ('"  + req.body.empno + "','" + req.body.billno + "','" + req.body.name + "',"  + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "');";
 	console.log(queryline);
 	db.query(queryline,[],(err,result)=>{
 		res.send(result);

@@ -92,7 +92,7 @@ secondaryC varchar(50)
 )
 BEGIN
 insert into HOUSEMEMBER_FILES values (empno, billno, year);
-insert into BILL values (billno, status, title, name, summarydesc, content, primaryC, scope, secondaryC, NULL, NULL, 1, empno);
+insert into BILL values (billno, status, title, name, summarydesc, primaryC, scope, secondaryC, NULL, NULL, 1, empno);
 END
 //
 delimiter ;
@@ -112,7 +112,7 @@ secondaryC varchar(50)
 )
 BEGIN
 insert into SENATOR_FILES values (empno, billno, year);
-insert into BILL values (billno, status, title, name, summarydesc, content, primaryC, scope, secondaryC, 1, empno, NULL, NULL);
+insert into BILL values (billno, status, title, name, summarydesc, primaryC, scope, secondaryC, 1, empno, NULL, NULL);
 END
 //
 delimiter ;

@@ -32,7 +32,8 @@ class SenateYear extends Component {
 
     this.state = {
       bills: [],
-      year: 0
+      year: 0,
+      subjects: []
     }
   }
 
@@ -41,6 +42,18 @@ class SenateYear extends Component {
       year: e.target.value
     })
   }
+
+  componentDidMount(){
+		fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
 
   loopSubjects(billno){
     return(
