@@ -10,6 +10,14 @@ exports.viewBills = (req, res, next) => {
 	})
 };
 
+exports.viewSenator = (req, res, next) => {
+	const queryline = 'select * from SENATOR where ' + req.query.key + '="' + req.query.value + '"';
+	console.log(queryline);
+	db.query(queryline,[],(err, result) => {
+		res.send(result);
+	})
+};
+
 exports.fileBillForSenator=(req,res,next)=>{
 	let queryline;
 
@@ -61,6 +69,14 @@ exports.deleteSenator=(req,res,next)=>{
 
 exports.updateBills = (req, res, next) => {
 	const queryline = 'update BILL set ' + req.body.key + '="' + req.body.value + '" where Billno="' + req.body.billno + '"';
+	console.log(queryline);
+	db.query(queryline, [], (err, result) => {
+		res.send(result);
+	});
+}
+
+exports.updateSenator = (req, res, next) => {
+	const queryline = 'update SENATOR set ' + req.body.key + '="' + req.body.value + '" where Employeenumber="' + req.body.empno + '"';
 	console.log(queryline);
 	db.query(queryline, [], (err, result) => {
 		res.send(result);

@@ -16,6 +16,8 @@ module.exports = (router) => {
 	router.get('/getCommittees', bills.getCommittees);
 	router.post('/addSenator', bills.addSenator);
 	router.post('/deleteSenator', bills.deleteSenator);
+	router.post('/updateSenator', bills.updateSenator);
+	router.get('/senators', bills.viewSenator);
 	router.get('/',bills.mainPage);
 
 	return router;
