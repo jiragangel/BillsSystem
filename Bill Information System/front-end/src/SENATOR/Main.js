@@ -107,7 +107,7 @@ class AddSenator extends Component {
           <input onChange={this.handleNameChange} placeholder="Name"></input>
           <textarea onChange={this.handleCommChange} placeholder="Committees
           (Separate multiple values with a semi-colon)"></textarea>
-          <input id="addButton" type="button" value="Add Bill" onClick={this.submitAdd}></input>
+          <input id="addButton" type="button" value="Add Senator" onClick={this.submitAdd}></input>
         </form>
       </fieldset>
     )

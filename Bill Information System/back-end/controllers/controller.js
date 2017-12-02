@@ -29,7 +29,7 @@ exports.fileBillForSenator=(req,res,next)=>{
 			if (err) res.send(err);
 		});
 	}
-	queryline = "call Filebillsenator ('"  + req.body.empno + "','" + req.body.billno + "','" + req.body.name + "',"  + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.content + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "');";
+	queryline = "call Filebillsenator ('"  + req.body.empno + "','" + req.body.billno + "','" + req.body.name + "',"  + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "');";
 	console.log(queryline);
 	db.query(queryline,[],(err,result)=>{
 		res.send(result);
@@ -45,7 +45,7 @@ exports.fileBillForHouseMem=(req,res,next)=>{
 			if (err) res.send(err);
 		});
 	}
-	queryline = "call Filebillhousemem ('"  + req.body.empno + "','" + req.body.billno + "','" + req.body.name + "',"  + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.content + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "');";
+	queryline = "call Filebillhousemem ('"  + req.body.empno + "','" + req.body.billno + "','" + req.body.name + "',"  + req.body.year + ",'" + req.body.status + "','" + req.body.title + "','" + req.body.summdesc + "','" + req.body.primarycommittee + "','" + req.body.scope + "','" + req.body.secondarycommittee + "');";
 	console.log(queryline);
 	db.query(queryline,[],(err,result)=>{
 		res.send(result);
@@ -119,6 +119,15 @@ exports.getHouseMems = (req, res, next) => {
 
 exports.getCommittees = (req, res, next) => {
 	const queryline =  "select * from SENATOR_COMMITTEE;";
+	db.query(queryline,[],(err, result) => {
+		if (err) res.send(err);
+		else res.send(result);
+	});
+}
+
+exports.senatebillyear = (req, res, next) => {
+	const queryline =  "select * from BILL natural join SENATOR_FILES where Year=" + req.query.year + ';';
+	console.log(queryline);
 	db.query(queryline,[],(err, result) => {
 		if (err) res.send(err);
 		else res.send(result);

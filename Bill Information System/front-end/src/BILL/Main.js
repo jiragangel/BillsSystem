@@ -72,7 +72,6 @@ class FileBillSenator extends Component {
       secondarycommittee:"",
       subjects:"",
       summdesc:"",
-      content:"",
       senators: []
     };
   }
@@ -142,12 +141,6 @@ class FileBillSenator extends Component {
     });
   }
 
-  handleSetContent(e){
-    this.setState({
-      content: e.target.value
-    });
-  }
-
   componentDidMount(){
 		fetch(`http://localhost:3001/getSenators`)
 		.then((response) => { return response.json()})
@@ -200,7 +193,6 @@ class FileBillSenator extends Component {
           <textarea onChange={this.handleSetSubjects} placeholder="Subjects
           (Separate multiple values with a semi-colon)"></textarea>
           <textarea onChange={this.handleSummDesc} placeholder="Summary Description"></textarea>
-          <textarea onChange={this.handleSetContent} id="content" placeholder="Content"></textarea>
           <input id="addButton" type="button" value="Add Bill" onClick={this.submitAdd}></input>
         </form>
       </fieldset>
@@ -224,7 +216,6 @@ class FileBillHouseMem extends Component {
       secondarycommittee:"",
       subjects:"",
       summdesc:"",
-      content:"",
       housemems: []
     };
   }
@@ -281,12 +272,6 @@ class FileBillHouseMem extends Component {
   handleSummDesc(e){
     this.setState({
       summdesc: e.target.value
-    });
-  }
-
-  handleSetContent(e){
-    this.setState({
-      content: e.target.value
     });
   }
 
@@ -349,7 +334,6 @@ class FileBillHouseMem extends Component {
           <textarea onChange={this.handleSetSubjects} placeholder="Subjects
           (Separate multiple values with a semi-colon)"></textarea>
           <textarea onChange={this.handleSummDesc} placeholder="Summary Description"></textarea>
-          <textarea onChange={this.handleSetContent} id="content" placeholder="Content"></textarea>
           <input id="addButton" type="button" value="Add Bill" onClick={this.submitAdd}></input>
         </form>
       </fieldset>
@@ -436,7 +420,6 @@ class Update extends Component {
             <option>Status</option>
             <option>Summarydesc</option>
             <option>Title</option>
-            <option>Content</option>
             <option>Primarycommittee</option>
             <option>Scope</option>
             <option>Secondarycommittee</option>
@@ -525,7 +508,6 @@ class Search extends Component {
             <option>Status</option>
             <option>Summarydesc</option>
             <option>Title</option>
-            <option>Content</option>
             <option>Primarycommittee</option>
             <option>Scope</option>
             <option>Secondarycommittee</option>
@@ -571,10 +553,6 @@ class Search extends Component {
               <tr>
                 <th>Summary Description</th>
                 <td>{bill.Summarydesc}</td>
-              </tr>
-              <tr>
-                <th>Content</th>
-                <td>{bill.Content}</td>
               </tr>
             </tbody></table>
             )
@@ -746,10 +724,6 @@ class ShowAllBills extends Component {
               <tr>
                 <th>Summary Description</th>
                 <td>{bill.Summarydesc}</td>
-              </tr>
-              <tr>
-                <th>Content</th>
-                <td>{bill.Content}</td>
               </tr>
             </tbody>
             </table>

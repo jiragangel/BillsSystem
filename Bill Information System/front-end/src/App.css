@@ -123,3 +123,8 @@ li {
 .subjs {
   text-align: left;
 }
+
+#reports {
+  margin: 30px;
+  width:500px;
+}
