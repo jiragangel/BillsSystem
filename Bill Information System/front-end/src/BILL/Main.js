@@ -63,6 +63,7 @@ class FileBillSenator extends Component {
     this.state={
       empno:"",
       billno:"",
+      name: "",
       year:"",
       status:"",
       title:"",
@@ -87,7 +88,8 @@ class FileBillSenator extends Component {
 
   handleSetEmpNo(e){
     this.setState({
-      empno: this.getEmpno(e.target.value)
+      empno: this.getEmpno(e.target.value),
+      name: e.target.value
     });
    }
 
@@ -213,6 +215,7 @@ class FileBillHouseMem extends Component {
     this.state={
       empno:"",
       billno:"",
+      name: "",
       year:"",
       status:"",
       title:"",
@@ -228,7 +231,8 @@ class FileBillHouseMem extends Component {
 
   handleSetEmpNo(e){
     this.setState({
-      empno: this.getEmpno(e.target.value)
+      empno: this.getEmpno(e.target.value),
+      name: e.target.value
     });
    }
    handleSetYear(e){
@@ -319,8 +323,6 @@ class FileBillHouseMem extends Component {
       console.log('Request failure: ',error);
     });
   }
-
-
 
   render(){
       return(
@@ -510,15 +512,6 @@ class Search extends Component {
 		.catch((e) => { console.log(e); });
   }
 
-  getSubjects(billno){
-		fetch(`http://localhost:3001/getSubjects`)
-		.then((response) => { return response.json()})
-		.then((result) => {
-			this.setState({ bills: result, key: "", billno: "", value: ""});
-		})
-		.catch((e) => { console.log(e); });
-  }
-
   render(){
     return(
       <div>
@@ -657,6 +650,7 @@ class Delete extends Component {
           })
         }
         </select>
+        <input type="button" onClick={this.submitDelete} value="Delete"/>
       </form>
       </fieldset>
     )
