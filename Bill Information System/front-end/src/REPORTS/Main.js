@@ -19,7 +19,7 @@ class Main extends Component {
             <option>View all bills passed at the House on Third Reading></option>
           </select>
         </nav>
-        <SenateYear />
+        <BillHouseMember />
       </div>
     )
   }
@@ -83,6 +83,13 @@ class SenateYear extends Component {
 		})
 		.catch((e) => { console.log(e); });
 
+    fetch(`http://localhost:3001/housebillyear?year=${this.state.year}`)
+  		.then((response) => { return response.json()})
+  		.then((result) => {
+  			this.setState({ bills: this.state.bills.concat(result) });
+  		})
+  		.catch((e) => { console.log(e); });
+
 		fetch(`http://localhost:3001/getSubjects`)
 		.then((response) => { return response.json()})
 		.then((result) => {
@@ -141,9 +148,154 @@ class SenateYear extends Component {
                 <th>Summary Description</th>
                 <td>{bill.Summarydesc}</td>
               </tr>
+            </tbody></table>
+            )
+          })
+        }
+      </div>
+      </div>
+    )
+  }
+}
+
+class BillSenator extends Component {
+  constructor(props){
+    super(props);
+    autobind(this);
+
+    this.state = {
+      bills: [],
+      senator: "",
+      subjects: [],
+      senators: []
+    }
+  }
+
+  handleSenatorChange(e){
+    this.setState({
+      senator: e.target.value
+    })
+  }
+
+  componentDidMount(){
+		fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+
+    fetch(`http://localhost:3001/getSenators`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        senators: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+
+  loopSubjects(billno){
+    return(
+      <td>
+      {
+        this.state.subjects.map((subj) => {
+          if (subj.Billno === billno){
+            return(
+              <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+            )
+          }else{
+            return(
+              <p></p>
+            )
+          }
+        })
+      }
+      </td>
+    )
+  }
+
+  submitClicked(e){
+    fetch(`http://localhost:3001/searchSenBills?name=${this.state.senator}`)
+  		.then((response) => { return response.json()})
+  		.then((result) => {
+  			this.setState({ bills: result });
+  		})
+  		.catch((e) => { console.log(e); });
+
+		fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+  render(){
+    return(
+      <div>
+      <fieldset id="updateSearch">
+        <h3>Search</h3>
+        <form>
+        <select onChange={this.handleSenatorChange}>
+          <option selected disabled>Senators</option>
+          {
+            this.state.senators.map((sen) => {
+              return(
+                <option>{sen.Name}</option>
+              )
+            })
+          }
+        </select>
+        <input type="button" onClick={this.submitClicked} value="Search Bill"></input>
+        </form>
+      </fieldset>
+      <div id="searchResults">
+        <h3>SEARCH RESULTS</h3>
+        {
+          this.state.bills.map((bill) => {
+            return(
+            <table key={this.state.bills.indexOf(bill)}><tbody>
               <tr>
-                <th>Content</th>
-                <td>{bill.Content}</td>
+                <th>Title</th>
+                <td>{bill.Title}</td>
+              </tr>
+              <tr>
+                <th>Status</th>
+                <td>{bill.Status}</td>
+              </tr>
+              <tr>
+                <th>Billno</th>
+                <td>{bill.Billno}</td>
+              </tr>
+              <tr>
+                <th>Author</th>
+                <td>{this.state.senator}</td>
+              </tr>
+              <tr>
+                <th>Subjects</th>
+                {this.loopSubjects(bill.Billno)}
+              </tr>
+              <tr>
+                <th>Primary Committee</th>
+                <td>{bill.Primarycommittee}</td>
+              </tr>
+              <tr>
+                <th>Seconday Committee</th>
+                <td>{bill.Secondarycommittee}</td>
+              </tr>
+              <tr>
+                <th>Scope</th>
+                <td>{bill.Scope}</td>
+              </tr>
+              <tr>
+                <th>Summary Description</th>
+                <td>{bill.Summarydesc}</td>
               </tr>
             </tbody></table>
             )
@@ -155,4 +307,152 @@ class SenateYear extends Component {
   }
 }
 
+class BillHouseMember extends Component {
+  constructor(props){
+    super(props);
+    autobind(this);
+
+    this.state = {
+      bills: [],
+      housemem: "",
+      subjects: [],
+      housemems: []
+    }
+  }
+
+  handleHousememChange(e){
+    this.setState({
+      senator: e.target.value
+    })
+  }
+
+  componentDidMount(){
+		fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+
+    fetch(`http://localhost:3001/getHouseMems`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        housemems: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+
+  loopSubjects(billno){
+    return(
+      <td>
+      {
+        this.state.subjects.map((subj) => {
+          if (subj.Billno === billno){
+            return(
+              <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+            )
+          }else{
+            return(
+              <p></p>
+            )
+          }
+        })
+      }
+      </td>
+    )
+  }
+
+  submitClicked(e){
+    fetch(`http://localhost:3001/searchHMBills?name=${this.state.senator}`)
+  		.then((response) => { return response.json()})
+  		.then((result) => {
+  			this.setState({ bills: result });
+  		})
+  		.catch((e) => { console.log(e); });
+
+		fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+  render(){
+    return(
+      <div>
+      <fieldset id="updateSearch">
+        <h3>Search</h3>
+        <form>
+        <select onChange={this.handleHousememChange}>
+          <option selected disabled>House Members</option>
+          {
+            this.state.housemems.map((sen) => {
+              return(
+                <option>{sen.Name}</option>
+              )
+            })
+          }
+        </select>
+        <input type="button" onClick={this.submitClicked} value="Search Bill"></input>
+        </form>
+      </fieldset>
+      <div id="searchResults">
+        <h3>SEARCH RESULTS</h3>
+        {
+          this.state.bills.map((bill) => {
+            return(
+            <table key={this.state.bills.indexOf(bill)}><tbody>
+              <tr>
+                <th>Title</th>
+                <td>{bill.Title}</td>
+              </tr>
+              <tr>
+                <th>Status</th>
+                <td>{bill.Status}</td>
+              </tr>
+              <tr>
+                <th>Billno</th>
+                <td>{bill.Billno}</td>
+              </tr>
+              <tr>
+                <th>Author</th>
+                <td>{this.state.senator}</td>
+              </tr>
+              <tr>
+                <th>Subjects</th>
+                {this.loopSubjects(bill.Billno)}
+              </tr>
+              <tr>
+                <th>Primary Committee</th>
+                <td>{bill.Primarycommittee}</td>
+              </tr>
+              <tr>
+                <th>Seconday Committee</th>
+                <td>{bill.Secondarycommittee}</td>
+              </tr>
+              <tr>
+                <th>Scope</th>
+                <td>{bill.Scope}</td>
+              </tr>
+              <tr>
+                <th>Summary Description</th>
+                <td>{bill.Summarydesc}</td>
+              </tr>
+            </tbody></table>
+            )
+          })
+        }
+      </div>
+      </div>
+    )
+  }
+}
 export default Main;

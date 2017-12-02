@@ -22,8 +22,11 @@ module.exports = (router) => {
 	router.post('/updateSenator', bills.updateSenator);
 	router.post('/updateHouseMember', bills.updateHouseMember);
 	router.get('/senators', bills.viewSenator);
-	router.get('/hmembers', bills.viewHouseMembers);
+	router.get('/housemembers', bills.viewHouseMembers);
 	router.get('/senatebillyear', bills.senatebillyear);
+	router.get('/housebillyear', bills.housebillyear);
+	router.get('/searchSenBills', bills.searchSenBills);
+	router.get('/searchHMBills', bills.searchHMBills);
 	router.get('/',bills.mainPage);
 
 	return router;

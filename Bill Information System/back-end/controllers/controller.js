@@ -161,6 +161,33 @@ exports.senatebillyear = (req, res, next) => {
 	});
 }
 
+exports.housebillyear = (req, res, next) => {
+	const queryline =  "select * from BILL natural join HOUSEMEMBER_FILES where Year=" + req.query.year + ';';
+	console.log(queryline);
+	db.query(queryline,[],(err, result) => {
+		if (err) res.send(err);
+		else res.send(result);
+	});
+}
+
+exports.searchSenBills = (req, res, next) => {
+	const queryline =  "select * from SENATOR_FILES left join BILL on SENATOR_FILES.Billno = BILL.Billno where Name='" + req.query.name + "';";
+	console.log(queryline);
+	db.query(queryline,[],(err, result) => {
+		if (err) res.send(err);
+		else res.send(result);
+	});
+}
+
+exports.searchHMBills = (req, res, next) => {
+	const queryline =  "select * from HOUSEMEMBER_FILES left join BILL on HOUSEM.Billno = BILL.Billno where Name='" + req.query.name + "';";
+	console.log(queryline);
+	db.query(queryline,[],(err, result) => {
+		if (err) res.send(err);
+		else res.send(result);
+	});
+}
+
 exports.addSenator = (req, res, next) => {
 	let queryline;
 	let arrayOfComm = req.body.committee.split(';');
@@ -187,7 +214,7 @@ exports.addHouseMember = (req, res, next) => {
 			if (err) res.send(err);
 		});
 	}
-	queryline = "insert into HOUSEMEMBER values ('"  + req.body.empno + "','" + req.body.name + "');";
+	queryline = "insert into HOUSEMEMBER values ('"  + req.body.empno + "','" + req.body.name + "','" + req.body.typeOfRep + "');";
 	console.log(queryline);
 	db.query(queryline,[],(err,result)=>{
 		res.send(result);
