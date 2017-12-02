@@ -309,6 +309,88 @@ insert into SENATOR_COMMITTEE values(
   "Climate Change"
 );
 
+insert into SENATOR values (
+  "0014",
+  "Richard J.Gordon"
+);
+insert into SENATOR_COMMITTEE values(
+  "0014",
+  "Accountability of Public Officers and Investigations"
+);
+insert into SENATOR_COMMITTEE values(
+  "0014",
+  "Agriculture and Food"
+);
+insert into SENATOR_COMMITTEE values(
+  "0014",
+  "Constitutional Amendments and Revision of Codes"
+);
+insert into SENATOR_COMMITTEE values(
+  "0014",
+  "Cooperatives"
+);
+
+insert into SENATOR values (
+  "0015",
+  "Gregorio B. Honasan II"
+);
+insert into SENATOR_COMMITTEE values(
+  "0015",
+  "Agrarian Reform"
+);
+insert into SENATOR_COMMITTEE values(
+  "0015",
+  "Accountability of Public Officers and Investigations"
+);
+insert into SENATOR_COMMITTEE values(
+  "0015",
+  "Accounts"
+);
+insert into SENATOR_COMMITTEE values(
+  "0015",
+  "Banks, Financial Institutions and Currencies"
+);
+insert into SENATOR_COMMITTEE values(
+  "0015",
+  "Cultural Communities"
+);
+
+insert into SENATOR values (
+  "0016",
+  "Risa Hontiveros"
+);
+insert into SENATOR_COMMITTEE values(
+  "0016",
+  "Climate Change"
+);
+insert into SENATOR_COMMITTEE values(
+  "0016",
+  "Accountability of Public Officers and Investigations"
+);
+insert into SENATOR_COMMITTEE values(
+  "0016",
+  "Accounts"
+);
+
+insert into SENATOR values (
+  "0017",
+  "Panfilo Lacson"
+);
+insert into SENATOR_COMMITTEE values(
+  "0017",
+  "Banks, Financial Institutions and Currencies"
+);
+insert into SENATOR_COMMITTEE values(
+  "0017",
+  "Accountability of Public Officers and Investigations"
+);
+insert into SENATOR_COMMITTEE values(
+  "0017",
+  "Accounts"
+);
+
+
+
 
 FileBillSenator (
   "0002",

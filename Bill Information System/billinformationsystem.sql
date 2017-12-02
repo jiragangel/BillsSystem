@@ -430,7 +430,7 @@ insert into SENATOR_COMMITTEE values(
 );
 
 
-FileBillSenator (
+call FileBillSenator (
   "0002",
   "SB 1598",
   2017,
@@ -460,7 +460,7 @@ insert into BILL_SUBJECT values(
   "Condonation"
 );
 
-FileBillSenator (
+call FileBillSenator (
   "0003",
   "SB 1614",
   "Joel Villanueva",
@@ -481,7 +481,7 @@ insert into BILL_SUBJECT values(
   "Leave of Absence"
 );
 
-FileBillSenator (
+call FileBillSenator (
   "0004",
   "SB 1622",
   "Leila De Lima",
@@ -505,7 +505,7 @@ insert into BILL_SUBJECT values(
   "SB 1622",
   "Parking Space"
 );
-FileBillSenator (
+call FileBillSenator (
   "0004",
   "SB 1622",
   "Leila De Lima",
