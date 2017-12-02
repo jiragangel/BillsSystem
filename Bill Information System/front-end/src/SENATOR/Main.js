@@ -335,6 +335,7 @@ class SearchSenator extends Component {
         <form>
           <select onChange={this.handleKeyChange}>
             <option selected disabled>Field to search</option>
+            <option>Employee number</option>
             <option>Name</option>
             <option>Committee</option>
           </select>

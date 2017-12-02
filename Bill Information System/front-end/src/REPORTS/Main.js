@@ -2,24 +2,62 @@ import React, { Component } from 'react';
 import autobind from 'react-autobind';
 import './../App.css'
 
+const showField = (fieldname) => {
+  if (fieldname === "View all bills filed at the Senate on a specific year."){
+    return <SenateYear />
+  }else if (fieldname === "View all bills filed at the Senate by a specific senator"){
+    return <BillSenator />
+  }else if (fieldname === "View all bills filed at the House by House member house member"){
+    return <BillHouseMember />
+  }else if (fieldname === "View all bills passed at the Senate on First Reading"){
+    return <SenateFirst />
+  }else if (fieldname === "View all bills passed at the Senate on Second Reading"){
+    return <SenateSecond />
+  }else if (fieldname === "View all bills passed at the Senate on Third Reading"){
+    return <SenateThird />
+  }else if (fieldname === "View all bills passed at the House on First Reading"){
+    return <HouseFirst />
+  }else if (fieldname === "View all bills passed at the House on Second Reading"){
+    return <HouseSecond />
+  }else if (fieldname === "View all bills passed at the House on Third Reading"){
+    return <HouseThird />
+  }
+}
+
 class Main extends Component {
+  constructor(props){
+    super(props);
+    autobind(this);
+
+    this.state = {
+      clicked: ""
+    }
+  }
+
+  handleChangeClick(e){
+    console.log(e.target.value);
+    this.setState({
+      clicked: e.target.value
+    })
+  }
+
   render() {
     return(
       <div>
         <nav>
-          <select id="reports">
+          <select onChange={this.handleChangeClick} id="reports">
             <option>View all bills filed at the Senate on a specific year.</option>
-            <option>View all bills field at the Senate by a specific senator</option>
+            <option>View all bills filed at the Senate by a specific senator</option>
             <option>View all bills filed at the House by House member house member</option>
             <option>View all bills passed at the Senate on First Reading</option>
             <option>View all bills passed at the Senate on Second Reading</option>
             <option>View all bills passed at the Senate on Third Reading</option>
             <option>View all bills passed at the House on First Reading</option>
             <option>View all bills passed at the House on Second Reading</option>
-            <option>View all bills passed at the House on Third Reading></option>
+            <option>View all bills passed at the House on Third Reading</option>
           </select>
         </nav>
-        <BillHouseMember />
+        {showField(this.state.clicked)}
       </div>
     )
   }
@@ -455,4 +493,593 @@ class BillHouseMember extends Component {
     )
   }
 }
+
+class SenateFirst extends Component {
+  constructor(props){
+    super(props);
+    autobind(this);
+
+    this.state = {
+      bills: [],
+      subjects: []
+    }
+  }
+
+
+  loopSubjects(billno){
+    return(
+      <td>
+      {
+        this.state.subjects.map((subj) => {
+          if (subj.Billno === billno){
+            return(
+              <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+            )
+          }else{
+            return(
+              <p></p>
+            )
+          }
+        })
+      }
+      </td>
+    )
+  }
+
+  componentDidMount(){
+		fetch(`http://localhost:3001/passed?type=Senate&status=First%20Reading`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        bills: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+
+    fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+  render(){
+    return(
+      <div>
+        {this.state.bills.map((bill) => {
+          return(
+          <table key={this.state.bills.indexOf(bill)}><tbody>
+            <tr>
+              <th>Billno</th>
+              <td>{bill.Billno}</td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td>{bill.Status}</td>
+            </tr>
+            <tr>
+              <th>Subjects</th>
+              {this.loopSubjects(bill.Billno)}
+            </tr>
+            <tr>
+              <th>Title</th>
+              <td>{bill.Title}</td>
+            </tr>
+            <tr>
+              <th>Primary Committee</th>
+              <td>{bill.Primarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Seconday Committee</th>
+              <td>{bill.Secondarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Scope</th>
+              <td>{bill.Scope}</td>
+            </tr>
+            <tr>
+              <th>Summary Description</th>
+              <td>{bill.Summarydesc}</td>
+            </tr>
+          </tbody></table>
+        )})}
+      </div>
+    )
+  }
+}
+
+class SenateSecond extends Component {
+  constructor(props){
+    super(props);
+    autobind(this);
+
+    this.state = {
+      bills: [],
+      subjects: []
+    }
+  }
+
+
+  loopSubjects(billno){
+    return(
+      <td>
+      {
+        this.state.subjects.map((subj) => {
+          if (subj.Billno === billno){
+            return(
+              <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+            )
+          }else{
+            return(
+              <p></p>
+            )
+          }
+        })
+      }
+      </td>
+    )
+  }
+
+  componentDidMount(){
+		fetch(`http://localhost:3001/passed?type=Senate&status=Second%20Reading`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        bills: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+
+    fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+  render(){
+    return(
+      <div>
+        {this.state.bills.map((bill) => {
+          return(
+            <table key={this.state.bills.indexOf(bill)}><tbody>
+            <tr>
+              <th>Billno</th>
+              <td>{bill.Billno}</td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td>{bill.Status}</td>
+            </tr>
+            <tr>
+              <th>Subjects</th>
+              {this.loopSubjects(bill.Billno)}
+            </tr>
+            <tr>
+              <th>Title</th>
+              <td>{bill.Title}</td>
+            </tr>
+            <tr>
+              <th>Primary Committee</th>
+              <td>{bill.Primarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Seconday Committee</th>
+              <td>{bill.Secondarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Scope</th>
+              <td>{bill.Scope}</td>
+            </tr>
+            <tr>
+              <th>Summary Description</th>
+              <td>{bill.Summarydesc}</td>
+            </tr>
+          </tbody></table>
+        )})
+      }
+      </div>
+    )
+  }
+}
+
+class SenateThird extends Component {
+  constructor(props){
+    super(props);
+    autobind(this);
+
+    this.state = {
+      bills: [],
+      subjects: []
+    }
+  }
+
+
+  loopSubjects(billno){
+    return(
+      <td>
+      {
+        this.state.subjects.map((subj) => {
+          if (subj.Billno === billno){
+            return(
+              <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+            )
+          }else{
+            return(
+              <p></p>
+            )
+          }
+        })
+      }
+      </td>
+    )
+  }
+
+  componentDidMount(){
+		fetch(`http://localhost:3001/passed?type=Senate&status=Third%20Reading`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        bills: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+
+    fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+  render(){
+    return(
+      <div>
+        {this.state.bills.map((bill) => {
+          return(
+            <table key={this.state.bills.indexOf(bill)}><tbody>
+            <tr>
+              <th>Billno</th>
+              <td>{bill.Billno}</td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td>{bill.Status}</td>
+            </tr>
+            <tr>
+              <th>Subjects</th>
+              {this.loopSubjects(bill.Billno)}
+            </tr>
+            <tr>
+              <th>Title</th>
+              <td>{bill.Title}</td>
+            </tr>
+            <tr>
+              <th>Primary Committee</th>
+              <td>{bill.Primarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Seconday Committee</th>
+              <td>{bill.Secondarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Scope</th>
+              <td>{bill.Scope}</td>
+            </tr>
+            <tr>
+              <th>Summary Description</th>
+              <td>{bill.Summarydesc}</td>
+            </tr>
+          </tbody></table>
+        )
+        })
+      }
+      </div>
+    )
+  }
+}
+
+class HouseFirst extends Component {
+  constructor(props){
+    super(props);
+    autobind(this);
+
+    this.state = {
+      bills: [],
+      subjects: []
+    }
+  }
+
+
+  loopSubjects(billno){
+    return(
+      <td>
+      {
+        this.state.subjects.map((subj) => {
+          if (subj.Billno === billno){
+            return(
+              <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+            )
+          }else{
+            return(
+              <p></p>
+            )
+          }
+        })
+      }
+      </td>
+    )
+  }
+
+  componentDidMount(){
+		fetch(`http://localhost:3001/passed?type=House&status=First%20Reading`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        bills: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+
+    fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+  render(){
+    return(
+      <div>
+        {this.state.bills.map((bill) => {
+          return(
+            <table key={this.state.bills.indexOf(bill)}><tbody>
+            <tr>
+              <th>Billno</th>
+              <td>{bill.Billno}</td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td>{bill.Status}</td>
+            </tr>
+            <tr>
+              <th>Subjects</th>
+              {this.loopSubjects(bill.Billno)}
+            </tr>
+            <tr>
+              <th>Title</th>
+              <td>{bill.Title}</td>
+            </tr>
+            <tr>
+              <th>Primary Committee</th>
+              <td>{bill.Primarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Seconday Committee</th>
+              <td>{bill.Secondarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Scope</th>
+              <td>{bill.Scope}</td>
+            </tr>
+            <tr>
+              <th>Summary Description</th>
+              <td>{bill.Summarydesc}</td>
+            </tr>
+          </tbody></table>
+        )})
+      }
+      </div>
+    )
+  }
+}
+
+class HouseSecond extends Component {
+  constructor(props){
+    super(props);
+    autobind(this);
+
+    this.state = {
+      bills: [],
+      subjects: []
+    }
+  }
+
+
+  loopSubjects(billno){
+    return(
+      <td>
+      {
+        this.state.subjects.map((subj) => {
+          if (subj.Billno === billno){
+            return(
+              <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+            )
+          }else{
+            return(
+              <p></p>
+            )
+          }
+        })
+      }
+      </td>
+    )
+  }
+
+  componentDidMount(){
+		fetch(`http://localhost:3001/passed?type=House&status=Second%20Reading`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        bills: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+
+    fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+  render(){
+    return(
+      <div>
+        {this.state.bills.map((bill) => {
+          return(
+            <table key={this.state.bills.indexOf(bill)}><tbody>
+            <tr>
+              <th>Billno</th>
+              <td>{bill.Billno}</td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td>{bill.Status}</td>
+            </tr>
+            <tr>
+              <th>Subjects</th>
+              {this.loopSubjects(bill.Billno)}
+            </tr>
+            <tr>
+              <th>Title</th>
+              <td>{bill.Title}</td>
+            </tr>
+            <tr>
+              <th>Primary Committee</th>
+              <td>{bill.Primarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Seconday Committee</th>
+              <td>{bill.Secondarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Scope</th>
+              <td>{bill.Scope}</td>
+            </tr>
+            <tr>
+              <th>Summary Description</th>
+              <td>{bill.Summarydesc}</td>
+            </tr>
+          </tbody></table>
+        )})
+      }
+      </div>
+    )
+  }
+}
+
+class HouseThird extends Component {
+  constructor(props){
+    super(props);
+    autobind(this);
+
+    this.state = {
+      bills: [],
+      subjects: []
+    }
+  }
+
+
+  loopSubjects(billno){
+    return(
+      <td>
+      {
+        this.state.subjects.map((subj) => {
+          if (subj.Billno === billno){
+            return(
+              <p className="subjs" key={this.state.subjects.indexOf(subj)}>{subj.Subject}</p>
+            )
+          }else{
+            return(
+              <p></p>
+            )
+          }
+        })
+      }
+      </td>
+    )
+  }
+
+  componentDidMount(){
+		fetch(`http://localhost:3001/passed?type=House&status=Third%20Reading`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        bills: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+
+    fetch(`http://localhost:3001/getSubjects`)
+		.then((response) => { return response.json()})
+		.then((result) => {
+      this.setState({
+        subjects: result
+      })
+		})
+		.catch((e) => { console.log(e); });
+  }
+
+  render(){
+    return(
+      <div>
+        {this.state.bills.map((bill) => {
+          return(
+            <table key={this.state.bills.indexOf(bill)}><tbody>
+            <tr>
+              <th>Billno</th>
+              <td>{bill.Billno}</td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td>{bill.Status}</td>
+            </tr>
+            <tr>
+              <th>Subjects</th>
+              {this.loopSubjects(bill.Billno)}
+            </tr>
+            <tr>
+              <th>Title</th>
+              <td>{bill.Title}</td>
+            </tr>
+            <tr>
+              <th>Primary Committee</th>
+              <td>{bill.Primarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Seconday Committee</th>
+              <td>{bill.Secondarycommittee}</td>
+            </tr>
+            <tr>
+              <th>Scope</th>
+              <td>{bill.Scope}</td>
+            </tr>
+            <tr>
+              <th>Summary Description</th>
+              <td>{bill.Summarydesc}</td>
+            </tr>
+          </tbody></table>
+        )})
+      }
+      </div>
+    )
+  }
+}
+
 export default Main;

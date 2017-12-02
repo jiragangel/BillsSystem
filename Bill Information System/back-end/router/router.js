@@ -27,6 +27,7 @@ module.exports = (router) => {
 	router.get('/housebillyear', bills.housebillyear);
 	router.get('/searchSenBills', bills.searchSenBills);
 	router.get('/searchHMBills', bills.searchHMBills);
+	router.get('/passed', bills.passed);
 	router.get('/',bills.mainPage);
 
 	return router;

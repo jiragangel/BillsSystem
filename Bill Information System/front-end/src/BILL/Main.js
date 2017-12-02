@@ -596,10 +596,10 @@ class Delete extends Component {
       body: JSON.stringify(this.state)
     })
     .then(function (data) {
-      console.log('Request success: ', data);
+      alert("Delete successful");
     })
     .catch(function (error) {
-      console.log('Request failure: ', error);
+      alert("There is an error.");
     });
   }
 
@@ -618,7 +618,7 @@ class Delete extends Component {
       <fieldset>
         <h3>Delete</h3>
         <form>
-        <select>
+        <select onChange={this.handleValueChange}>
         <option selected disabled>Bill Number</option>
         {
           this.state.bills.map((b) => {

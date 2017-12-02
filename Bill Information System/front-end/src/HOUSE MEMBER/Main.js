@@ -263,6 +263,7 @@ class UpdateHouseMember extends Component {
             <option selected disabled>Field to change</option>
             <option>Name</option>
             <option>Committee</option>
+            <option>Typeofrepresentative</option>
           </select>
           <textarea onChange={this.handleValueChange} placeholder="Enter new value"></textarea>
           <input type="button" onClick={this.submitUpdate} value="Update Bill"></input>
@@ -345,6 +346,7 @@ class SearchHouseMember extends Component {
             <option selected disabled>Field to search</option>
             <option>Name</option>
             <option>Committee</option>
+            <option>Typeofrepresentative</option>
           </select>
           <textarea onChange={this.handleValueChange} placeholder="Value to search"></textarea>
           <input type="button" onClick={this.submitClicked} value="Search Bill"></input>
@@ -363,6 +365,10 @@ class SearchHouseMember extends Component {
               <tr>
                 <th>Name</th>
                 <td>{hm.Name}</td>
+              </tr>
+              <tr>
+                <th>Type Of Representative</th>
+                <td>{hm.Typeofrepresentative}</td>
               </tr>
               <tr>
                 <th>Committees</th>

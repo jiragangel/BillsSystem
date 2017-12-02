@@ -180,7 +180,7 @@ exports.searchSenBills = (req, res, next) => {
 }
 
 exports.searchHMBills = (req, res, next) => {
-	const queryline =  "select * from HOUSEMEMBER_FILES left join BILL on HOUSEM.Billno = BILL.Billno where Name='" + req.query.name + "';";
+	const queryline =  "select * from HOUSEMEMBER_FILES left join BILL on HOUSEMEMBER_FILES.Billno = BILL.Billno where Name='" + req.query.name + "';";
 	console.log(queryline);
 	db.query(queryline,[],(err, result) => {
 		if (err) res.send(err);
@@ -219,4 +219,17 @@ exports.addHouseMember = (req, res, next) => {
 	db.query(queryline,[],(err,result)=>{
 		res.send(result);
 	});
+}
+
+exports.passed = (req, res, next) => {
+	let queryline;
+	if (req.query.type === "Senate"){
+		queryline = "select * from BILL where Senator_flag IS NOT NULL and Status='" + req.query.status + "';";
+	}else{
+		queryline = "select * from BILL where Housemem_flag IS NOT NULL and Status='" + req.query.status + "';";
+	}
+	console.log(queryline);
+	db.query(queryline,[],(err, result) => {
+		res.send(result)
+	})
 }
