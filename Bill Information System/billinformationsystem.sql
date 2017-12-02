@@ -70,6 +70,7 @@ create table BILL(
   Billno varchar(10),
   Status varchar(50),
   Title varchar(100),
+  Name varchar(20),
   Summarydesc varchar(250),
   Primarycommittee varchar(50),
   Scope varchar(10),
@@ -78,16 +79,22 @@ create table BILL(
   Semployeenumber varchar(10),
   Housemem_flag int(1),
   Hemployeenumber varchar(10),
+<<<<<<< HEAD
   CONSTRAINT BILL_Billno_pk PRIMARY KEY(Billno),
   CONSTRAINT BILL_Semployeenumber_fk FOREIGN KEY(Semployeenumber) REFERENCES SENATOR(Employeenumber),
   CONSTRAINT BILL_Hemployeenumber_fk FOREIGN KEY(Hemployeenumber) REFERENCES HOUSEMEMBER(Employeenumber)
 );
 
+=======
+  CONSTRAINT BILL_Billno_pk PRIMARY KEY(Billno)
+);
+>>>>>>> ec8195e82bba4273156b77deedf00eae08009afb
 
 delimiter //
 CREATE PROCEDURE Filebillhousemem (
 empno varchar(10),
 billno varchar(10),
+name varchar(20),
 year int(4),
 status varchar(50),
 title varchar(100),
@@ -98,7 +105,11 @@ secondaryC varchar(50)
 )
 BEGIN
 insert into HOUSEMEMBER_FILES values (empno, billno, year);
+<<<<<<< HEAD
 insert into BILL values (billno, status, title, summarydesc,primaryC, scope, secondaryC, NULL, NULL, 1, empno);
+=======
+insert into BILL values (billno, status, title, name, summarydesc, content, primaryC, scope, secondaryC, NULL, NULL, 1, empno);
+>>>>>>> ec8195e82bba4273156b77deedf00eae08009afb
 END
 //
 delimiter ;
@@ -107,6 +118,7 @@ delimiter //
 CREATE PROCEDURE Filebillsenator (
 empno varchar(10),
 billno varchar(10),
+name varchar(20),
 year int(4),
 status varchar(50),
 title varchar(100),
@@ -117,7 +129,7 @@ secondaryC varchar(50)
 )
 BEGIN
 insert into SENATOR_FILES values (empno, billno, year);
-insert into BILL values (billno, status, title, summarydesc, content, primaryC, scope, secondaryC, 1, empno, NULL, NULL);
+insert into BILL values (billno, status, title, name, summarydesc, content, primaryC, scope, secondaryC, 1, empno, NULL, NULL);
 END
 //
 delimiter ;
@@ -136,6 +148,7 @@ CREATE PROCEDURE DeleteBill ( billnumber varchar(10) )
 //
 delimiter ;
 
+<<<<<<< HEAD
 
 -- INSERT VALUES
 insert into SENATOR values (
@@ -540,3 +553,13 @@ insert into BILL_SUBJECT values(
 
 
 
+=======
+delimiter //
+CREATE PROCEDURE DeleteSenator ( empno varchar(10) )
+  BEGIN
+    delete from SENATOR where Employeenumber=empno;
+    delete from SENATOR_COMMITTEE where Employeenumber=empno;
+  END
+//
+delimiter ;
+>>>>>>> ec8195e82bba4273156b77deedf00eae08009afb
