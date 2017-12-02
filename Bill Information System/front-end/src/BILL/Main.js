@@ -599,7 +599,7 @@ class Delete extends Component {
       alert("Delete successful");
     })
     .catch(function (error) {
-      alert("There is an error.");
+      alert("Error: " + error);
     });
   }
 
@@ -607,6 +607,7 @@ class Delete extends Component {
   		fetch(`http://localhost:3001/getAllbills`)
   		.then((response) => { return response.json()})
   		.then((result) => {
+        console.log(result);
         this.setState({
           bills: result
         })
