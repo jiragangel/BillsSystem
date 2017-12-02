@@ -61,7 +61,8 @@ class AddHouseMember extends Component {
     this.state={
       empno:"",
       name:"",
-      committee:""
+      committee:"",
+      typeOfRep:""
     };
   }
 
@@ -80,6 +81,11 @@ class AddHouseMember extends Component {
   handleCommChange(e){
     this.setState({
       committee: e.target.value
+    })
+  }
+  handletTypeOfRepChange(e){
+    this.setState({
+      typeOfRep: e.target.value
     })
   }
 
@@ -106,6 +112,7 @@ class AddHouseMember extends Component {
         <form>
           <input onChange={this.handleEmpNoChange} placeholder="Employee Number"></input>
           <input onChange={this.handleNameChange} placeholder="Name"></input>
+          <input onChange={this.handletTypeOfRepChange} placeholder="Type Of Representative"></input>
           <textarea onChange={this.handleCommChange} placeholder="Committees
           (Separate multiple values with a semi-colon)"></textarea>
           <input id="addButton" type="button" value="Add House Member" onClick={this.submitAdd}></input>
@@ -348,7 +355,7 @@ class SearchHouseMember extends Component {
         {
           this.state.housemembers.map((hm) => {
             return(
-            <table key={this.state.hmembers.indexOf(hm)}><tbody>
+            <table key={this.state.housemembers.indexOf(hm)}><tbody>
               <tr>
                 <th>Employee number</th>
                 <td>{hm.Employeenumber}</td>
@@ -385,6 +392,7 @@ class ShowAllHouseMembers extends Component {
     fetch(`http://localhost:3001/getHouseMems`)
     .then((response) => { return response.json()})
     .then((result) => {
+      console.log("RESULT: " + result);
       this.setState({ housemembers: result });
     })
     .catch((e) => { console.log(e); });
@@ -433,6 +441,10 @@ class ShowAllHouseMembers extends Component {
             <tr>
               <th>Name</th>
               <td>{emp.Name}</td>
+            </tr>
+            <tr>
+              <th>Type Of Representative</th>
+              <td>{emp.Typeofrepresentative}</td>
             </tr>
             <tr>
               <th>Committees</th>

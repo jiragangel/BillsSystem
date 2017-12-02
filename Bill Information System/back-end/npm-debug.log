@@ -7,8 +7,13 @@
 6 silly lifecycle acss-node-react-starter-pack@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle acss-node-react-starter-pack@1.0.0~start: acss-node-react-starter-pack@1.0.0
 8 verbose lifecycle acss-node-react-starter-pack@1.0.0~start: unsafe-perm in lifecycle true
+<<<<<<< HEAD
 9 verbose lifecycle acss-node-react-starter-pack@1.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/kimberly/BillsSystem/Bill Information System/back-end/node_modules/.bin:/home/kimberly/bin:/home/kimberly/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/kimberly/.npm-global/bin
 10 verbose lifecycle acss-node-react-starter-pack@1.0.0~start: CWD: /home/kimberly/BillsSystem/Bill Information System/back-end
+=======
+9 verbose lifecycle acss-node-react-starter-pack@1.0.0~start: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/jira/Desktop/BillsSystem/Bill Information System/back-end/node_modules/.bin:/home/jira/bin:/home/jira/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/usr/lib/jvm/java-8-oracle/bin:/usr/lib/jvm/java-8-oracle/db/bin:/usr/lib/jvm/java-8-oracle/jre/bin
+10 verbose lifecycle acss-node-react-starter-pack@1.0.0~start: CWD: /home/jira/Desktop/BillsSystem/Bill Information System/back-end
+>>>>>>> 03732996b9cd6c035344eada8551094d963cdc4d
 11 silly lifecycle acss-node-react-starter-pack@1.0.0~start: Args: [ '-c',
 11 silly lifecycle   'concurrently "cd front-end && npm start" "nodemon back-end/server.js"' ]
 12 info lifecycle acss-node-react-starter-pack@1.0.0~start: Failed to exec start script
@@ -20,8 +25,13 @@
 13 verbose stack     at maybeClose (internal/child_process.js:920:16)
 13 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:230:5)
 14 verbose pkgid acss-node-react-starter-pack@1.0.0
+<<<<<<< HEAD
 15 verbose cwd /home/kimberly/BillsSystem/Bill Information System/back-end
 16 error Linux 4.10.0-40-generic
+=======
+15 verbose cwd /home/jira/Desktop/BillsSystem/Bill Information System/back-end
+16 error Linux 4.10.0-38-generic
+>>>>>>> 03732996b9cd6c035344eada8551094d963cdc4d
 17 error argv "/usr/bin/node" "/usr/bin/npm" "start"
 18 error node v6.12.0
 19 error npm  v3.10.10
