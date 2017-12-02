@@ -91,10 +91,10 @@ class AddSenator extends Component {
       body:JSON.stringify(this.state)
     })
     .then(function (data){
-      console.log('Request success',data);
+      alert("Add Successful");
     })
     .catch(function(error){
-      console.log('Request failure: ',error);
+      alert(error);
     });
   }
 
@@ -139,10 +139,10 @@ class DeleteSenator extends Component {
       body: JSON.stringify(this.state)
     })
     .then(function (data) {
-      console.log('Request success: ', data);
+      alert("Delete Successful");
     })
     .catch(function (error) {
-      console.log('Request failure: ', error);
+      alert(error);
     });
   }
 
@@ -219,10 +219,10 @@ class UpdateSenator extends Component {
       body: JSON.stringify(this.state)
     })
     .then(function (data) {
-      console.log('Request success: ', data);
+      alert("Update Successful");
     })
     .catch(function (error) {
-      console.log('Request failure: ', error);
+      alert(error);
     });
   }
 
@@ -314,6 +314,7 @@ class SearchSenator extends Component {
 		.then((response) => { return response.json()})
 		.then((result) => {
 			this.setState({ senators: result, key: "", billno: "", value: ""});
+			alert("Search Successful");
 		})
 		.catch((e) => { console.log(e); });
 

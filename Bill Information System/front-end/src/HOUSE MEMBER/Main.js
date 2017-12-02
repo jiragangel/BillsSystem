@@ -98,10 +98,10 @@ class AddHouseMember extends Component {
       body:JSON.stringify(this.state)
     })
     .then(function (data){
-      console.log('Request success',data);
+      alert("Add Successful");
     })
     .catch(function(error){
-      console.log('Request failure: ',error);
+      alert(error);
     });
   }
 
@@ -147,10 +147,10 @@ class DeleteHouseMember extends Component {
       body: JSON.stringify(this.state)
     })
     .then(function (data) {
-      console.log('Request success: ', data);
+      alert("Delete success");
     })
     .catch(function (error) {
-      console.log('Request failure: ', error);
+      alert(error);
     });
   }
 
@@ -227,10 +227,10 @@ class UpdateHouseMember extends Component {
       body: JSON.stringify(this.state)
     })
     .then(function (data) {
-      console.log('Request success: ', data);
+      alert("Update Successful");
     })
     .catch(function (error) {
-      console.log('Request failure: ', error);
+      alert(error);
     });
   }
 
@@ -323,6 +323,7 @@ class SearchHouseMember extends Component {
 		.then((response) => { return response.json()})
 		.then((result) => {
 			this.setState({ housemembers: result, key: "", billno: "", value: ""});
+			alert("Search Successful");
 		})
 		.catch((e) => { console.log(e); });
 
