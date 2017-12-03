@@ -144,6 +144,7 @@ class DeleteSenator extends Component {
     .catch(function (error) {
       alert(error);
     });
+    window.location.reload();
   }
 
   componentDidMount(){

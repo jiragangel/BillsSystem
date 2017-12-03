@@ -36,7 +36,6 @@ class Main extends Component {
     this.setState({
       clicked: e.target.value
     })
-    this.forceUpdate();
   }
 
   render() {
@@ -78,9 +77,7 @@ class FileBillSenator extends Component {
 
   getEmpno(name){
     for (let i = 0 ; i < this.state.senators.length ; i++){
-      console.log("GET EMPNO LOOP: " + this.state.senators[i].Name);
       if (name === this.state.senators[i].Name){
-        console.log(this.state.senators[i].Employeenumber);
         return this.state.senators[i].Employeenumber
       }
       return;
@@ -604,6 +601,8 @@ class Delete extends Component {
     .catch(function (error) {
       alert(error);
     });
+
+    window.location.reload();
   }
 
   componentDidMount(){
