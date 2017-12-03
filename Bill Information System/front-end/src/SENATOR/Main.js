@@ -91,6 +91,11 @@ class AddSenator extends Component {
       body:JSON.stringify(this.state)
     })
     .then(function (data){
+      this.setState({
+        empno:"",
+        name:"",
+        committee:""
+      })
       alert("Add Successful");
     })
     .catch(function(error){
