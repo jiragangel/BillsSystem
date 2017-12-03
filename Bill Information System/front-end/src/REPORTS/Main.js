@@ -527,7 +527,8 @@ class SenateFirst extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=Senate&status=First%20Reading`)
+    let string = "Approved on First Reading by the Senate"
+		fetch(`http://localhost:3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -624,7 +625,8 @@ class SenateSecond extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=Senate&status=Second%20Reading`)
+    let string = "Approved on Second Reading by the Senate"
+		fetch(`http://localhost:3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -722,7 +724,8 @@ class SenateThird extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=Senate&status=Third%20Reading`)
+    let string = "Approved on Third Reading by the Senate"
+		fetch(`http://localhost:3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -821,7 +824,8 @@ class HouseFirst extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=House&status=First%20Reading`)
+    let string = "Approved on First Reading by the House of Representatives"
+		fetch(`http://localhost3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -919,7 +923,8 @@ class HouseSecond extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=House&status=Second%20Reading`)
+    let string = "Approved on Second Reading by the House of Representatives"
+		fetch(`http://localhost3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -1017,7 +1022,8 @@ class HouseThird extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=House&status=Third%20Reading`)
+    let string = "Approved on Third Reading by the House of Representatives"
+		fetch(`http://localhost3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
