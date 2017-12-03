@@ -159,10 +159,10 @@ class FileBillSenator extends Component {
       body:JSON.stringify(this.state)
     })
     .then(function (data){
-      console.log('Request success',data);
+      alert("Add Successful");
     })
     .catch(function(error){
-      console.log('Request failure: ',error);
+      alert(error);
     });
   }
 
@@ -302,10 +302,10 @@ class FileBillHouseMem extends Component {
       body:JSON.stringify(this.state)
     })
     .then(function (data){
-      console.log('Request success',data);
+      alert("Add Successful");
     })
     .catch(function(error){
-      console.log('Request failure: ',error);
+      alert(error);
     });
   }
 
@@ -382,10 +382,10 @@ class Update extends Component {
       body: JSON.stringify(this.state)
     })
     .then(function (data) {
-      console.log('Request success: ', data);
+      alert("Update Successful");
     })
     .catch(function (error) {
-      console.log('Request failure: ', error);
+      alert("There is an error");
     });
   }
 
@@ -482,6 +482,7 @@ class Search extends Component {
 		.then((response) => { return response.json()})
 		.then((result) => {
 			this.setState({ bills: result, key: "", billno: "", value: ""});
+			alert("Search Successful");
 		})
 		.catch((e) => { console.log(e); });
 
@@ -596,10 +597,10 @@ class Delete extends Component {
       body: JSON.stringify(this.state)
     })
     .then(function (data) {
-      alert("Delete successful");
+      alert("Add Successful");
     })
     .catch(function (error) {
-      alert("There is an error.");
+      alert(error);
     });
   }
 
