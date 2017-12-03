@@ -30,7 +30,7 @@ class Main extends Component {
     autobind(this);
 
     this.state = {
-      clicked: ""
+      clicked: "View all bills filed at the Senate on a specific year."
     }
   }
 

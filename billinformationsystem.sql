@@ -42,22 +42,10 @@ create table HOUSEMEMBER_FILES(
   CONSTRAINT HMFILES_enumbillno_pk PRIMARY KEY(Employeenumber,Billno)
 );
 
-create table HOUSEMEMBER_APPROVES(
-  Employeenumber VARCHAR(10),
-  Billno VARCHAR(10),
-  CONSTRAINT HMFILES_enumbillno_pk PRIMARY KEY(Employeenumber,Billno)
-);
-
 create table SENATOR_FILES(
   Employeenumber VARCHAR(10),
   Billno VARCHAR(10),
   Year int(4),
-  CONSTRAINT SFILES_enumbillno_pk PRIMARY KEY(Employeenumber,Billno)
-);
-
-create table SENATOR_APPROVES(
-  Employeenumber VARCHAR(10),
-  Billno VARCHAR(10),
   CONSTRAINT SFILES_enumbillno_pk PRIMARY KEY(Employeenumber,Billno)
 );
 
@@ -67,9 +55,9 @@ create table BILL(
   Title varchar(100),
   Name varchar(50),
   Summarydesc varchar(250),
-  Primarycommittee varchar(100),
+  Primarycommittee varchar(50),
   Scope varchar(10),
-  Secondarycommittee varchar(100),
+  Secondarycommittee varchar(50),
   Senator_flag int(1),
   Semployeenumber varchar(10),
   Housemem_flag int(1),
