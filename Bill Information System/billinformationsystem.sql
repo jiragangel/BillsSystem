@@ -419,6 +419,23 @@ insert into SENATOR_COMMITTEE values(
   "0012",
   "Women, Children, Family Relations and Gender Equality"
 );
+insert into SENATOR values (
+  "0013",
+  "Manuel B. Villar Jr."
+);
+insert into SENATOR_COMMITTEE values(
+  "0013",
+  "Finance"
+);
+insert into SENATOR_COMMITTEE values(
+  "0013",
+  "Agriculture and Fisheries"
+);
+insert into SENATOR_COMMITTEE values(
+  "0013",
+  "Foreign Relations"
+);
+
 
 
 call FileBillSenator (
@@ -431,7 +448,7 @@ call FileBillSenator (
   "An act granting the Social Security System the authority to coondone penalties for unremitted or delinquent contributes by employers or domestic workers for the purpose of encouraging compliance with Social Security Laws.",
   "Labor, Employment and Human Resources Development",
   "National",
-  NULL,
+  NULL
 );
 insert into BILL_SUBJECT values(
   "SB 1598",
@@ -462,7 +479,7 @@ call FileBillSenator (
   "An act increasing the service incentive leave of employees, amending for the purpose Article 95 of Presidential Decree No. 442, as amended, otherwise known as the Labor Code of the Philippines.",
   "Labor, Employment and Human Resources Development",
   "National",
-  NULL,
+  NULL
 );
 insert into BILL_SUBJECT values(
   "SB 1614",
@@ -483,7 +500,7 @@ call FileBillSenator (
   "An act mandating the provision of exclusive parking space for handicapped persons and penalizing the unauthorized use thereof.",
   "Social Justice, Welfare and Rural Development",
   "National",
-  NULL,
+  NULL
 );
 insert into BILL_SUBJECT values(
   "SB 1622",
@@ -499,7 +516,7 @@ insert into BILL_SUBJECT values(
 );
 call FileBillSenator (
   "0004",
-  "SB 1622",
+  "SB 1621",
   "Leila De Lima",
   2017,
   "Pending in the Committee",
@@ -507,32 +524,105 @@ call FileBillSenator (
   "An act requiring the disclosure of nutritional information in menus of food service establishments.",
   "Health and Demography",
   "National",
-  NULL,
+  NULL
 );
 insert into BILL_SUBJECT values(
-  "SB 1622",
+  "SB 1621",
   "Nutrition"
 );
 insert into BILL_SUBJECT values(
-  "SB 1622",
+  "SB 1621",
   "Food Establishments"
 );
 
 call FileBillSenator (
   "0006",
   "SB 1619",
+  "Joseph Victor G. Ejercito",
   2017,
   "Pending in the Committee",
   "Anti-Discrimination Act of 2017",
   "An act prohibiting discrimination on the basis of ethnicity, race, religion or belief, sex, gender, sexual orientation, gender identity, gender expression, civil status and HIV status, and providing penalties therefor.",
   "Cultural Communities",
   "National",
-  "Social Justice, Welfare and Rural Development",
-)
+  "Social Justice, Welfare and Rural Development"
+);
 insert into BILL_SUBJECT values(
   "SB 1619",
   "Anti-Discrimination"
 );
+
+call FileBillSenator (
+  "0011",
+  "SB 1533",
+  "Paolo Benigno Aquino",
+  2017,
+  "Approved on Third Reading by the Senate",
+  "Balik Scientist Act",
+  "An act institutionalizing the Balik Scientist Program, appropriating funds therefor, and for other purpose.",
+  "Science and Technology",
+  "National",
+  "Ways and Means"
+);
+insert into BILL_SUBJECT values(
+  "SB 1533",
+  "Balik Scientist Program"
+);
+insert into BILL_SUBJECT values(
+  "SB 1533",
+  "Scientists/Researchers"
+);
+
+call FileBillSenator (
+  "0005",
+  "SB 1439",
+  "Sherwin Gatchalian",
+  2017,
+  "Approved on Third Reading by the Senate",
+  "Energy Virtual One Stop Shop Act of 2017",
+  "An act establishing the Energy Virtual One Stop Shop for the purpose of streamlining the permitting process of energy generation projects.",
+  "Energy",
+  "National",
+  "Finance"
+);
+insert into BILL_SUBJECT values(
+  "SB 1439",
+  "Energy Generating Facilities"
+);
+insert into BILL_SUBJECT values(
+  "SB 1439",
+  "Energy Generating Facilities"
+);
+insert into BILL_SUBJECT values(
+  "SB 1439",
+  "Energy Virtual One Stop Shop (Evoss)"
+);
+
+call FileBillSenator (
+  "0013",
+  "SB 2295",
+  "Manuel B. Villar Jr.",
+  2017,
+  "Approved on First Reading by the Senate",
+  "Preparatory Education Act",
+  "An act institutionalizing preparatory education in the Basic Education System.",
+  "Energy",
+  "National",
+  "Finance"
+);
+insert into BILL_SUBJECT values(
+  "SB 1439",
+  "Energy Generating Facilities"
+);
+insert into BILL_SUBJECT values(
+  "SB 1439",
+  "Energy Generating Facilities"
+);
+insert into BILL_SUBJECT values(
+  "SB 1439",
+  "Energy Virtual One Stop Shop (Evoss)"
+);
+
 
 delimiter //
 CREATE PROCEDURE DeleteSenator ( empno varchar(10) )
