@@ -3,23 +3,48 @@
 const db = require(__dirname + '/../lib/mysql');
 
 exports.viewBills = (req, res, next) => {
-	const queryline = 'select * from BILL where ' + req.query.key + '="' + req.query.value + '"';
+	if(req.query.key==="Subjects"){
+		const queryline = 'select * from BILL_SUBJECT natural join BILL where Subject="' + req.query.value + '";';
+		db.query(queryline,[],(err, result) => {
+			res.send(result);
+
+		})
+	}
+	else{
+	const queryline = 'select * from BILL where ' + req.query.key + '="' + req.query.value + '";';
 	db.query(queryline,[],(err, result) => {
 		res.send(result);
 	})
+}
 };
 
 exports.viewSenator = (req, res, next) => {
+	if(req.query.key==="Committee"){
+		const queryline = 'select * from SENATOR_COMMITTEE natural join SENATOR where Committee="' + req.query.value + '";';
+		db.query(queryline,[],(err, result) => {
+			res.send(result);
+
+		})
+	}else{
 	const queryline = 'select * from SENATOR where ' + req.query.key + '="' + req.query.value + '"';
 	db.query(queryline,[],(err, result) => {
 		res.send(result);
 	})
+}
 };
 exports.viewHouseMembers = (req, res, next) => {
+	if(req.query.key==="Committee"){
+		const queryline = 'select * from HOUSEMEMBER_COMMITTEE natural join HOUSEMEMBER where Committee="' + req.query.value + '";';
+		db.query(queryline,[],(err, result) => {
+			res.send(result);
+
+		})
+	}else{
 	const queryline = 'select * from HOUSEMEMBER where ' + req.query.key + '="' + req.query.value + '"';
 	db.query(queryline,[],(err, result) => {
 		res.send(result);
 	})
+}
 };
 exports.fileBillForSenator=(req,res,next)=>{
 	let queryline;
@@ -77,27 +102,83 @@ exports.deleteHouseMember=(req,res,next)=>{
 }
 
 exports.updateBills = (req, res, next) => {
-	const queryline = 'update BILL set ' + req.body.key + '="' + req.body.value + '" where Billno="' + req.body.billno + '"';
-	db.query(queryline, [], (err, result) => {
-		res.send(result);
-	});
+	let queryline;
+	let queryline2;
+
+	if (req.body.key==="Subjects"){
+		queryline2="delete from BILL_SUBJECT where Billno='"+ req.body.billno+"';";
+		db.query(queryline2,[],(err,result)=>{
+		});
+		let arrayofSubjects = req.body.value.split(';');
+		for (let i = 0 ; i < arrayofSubjects.length ; i++){
+			queryline = "insert into BILL_SUBJECT values ('" + req.body.billno + "','" + arrayofSubjects[i] + "');";
+			db.query(queryline,[],(err,result)=>{
+				if (err) {
+					res.send(err);
+					return;
+				}
+			});
+		}
+	}else{
+		queryline = 'update BILL set ' + req.body.key + '="' + req.body.value + '" where Billno="' + req.body.billno + '";';
+		db.query(queryline, [], (err, result) => {
+			res.send(result);
+		});
+	}
+
 }
 
 exports.updateSenator = (req, res, next) => {
-	const queryline = 'update SENATOR set ' + req.body.key + '="' + req.body.value + '" where Employeenumber="' + req.body.empno + '"';
+	let queryline;
+	let queryline2;
+	if (req.body.key==="Committee"){
+		queryline2="delete from SENATOR_COMMITTEE where Employeenumber='"+ req.body.empno+"';";
+		db.query(queryline2,[],(err,result)=>{
+		});
+		let arrayofCommittee = req.body.value.split(';');
+		for (let i = 0 ; i < arrayofCommittee.length ; i++){
+			queryline = "insert into SENATOR_COMMITTEE values ('" + req.body.empno + "','" + arrayofCommittee[i] + "');";
+			db.query(queryline,[],(err,result)=>{
+				if (err) {
+					res.send(err);
+					return;
+				}
+			});
+		}
+	}else{
+	const queryline = 'update SENATOR set ' + req.body.key + '="' + req.body.value + '" where Employeenumber="' + req.body.empno + '";';
 	db.query(queryline, [], (err, result) => {
 		res.send(result);
 	});
 }
+}
 exports.updateHouseMember = (req, res, next) => {
-	const queryline = 'update HOUSEMEMBER set ' + req.body.key + '="' + req.body.value + '" where Employeenumber="' + req.body.empno + '"';
+	let queryline;
+	let queryline2;
+	if (req.body.key==="Committee"){
+		queryline2="delete from HOUSEMEMBER_COMMITTEE where Employeenumber='"+ req.body.empno+"';";
+		db.query(queryline2,[],(err,result)=>{
+		});
+		let arrayofCommittee = req.body.value.split(';');
+		for (let i = 0 ; i < arrayofCommittee.length ; i++){
+			queryline = "insert into HOUSEMEMBER_COMMITTEE values ('" + req.body.empno + "','" + arrayofCommittee[i] + "');";
+			db.query(queryline,[],(err,result)=>{
+				if (err) {
+					res.send(err);
+					return;
+				}
+			});
+		}
+	}else{
+	const queryline = 'update HOUSEMEMBER set ' + req.body.key + '="' + req.body.value + '" where Employeenumber="' + req.body.empno + '";';
 	db.query(queryline, [], (err, result) => {
 		res.send(result);
 	});
+}
 }
 
 exports.getAllbills = (req, res, next) => {
-	const queryline = 'select * from BILL';
+	const queryline = 'select * from BILL;';
 	db.query(queryline, [], (err, result) => {
 		res.send(result);
 	});
@@ -215,6 +296,6 @@ exports.addHouseMember = (req, res, next) => {
 exports.passed = (req, res, next) => {
 	let queryline = "select * from BILL where Status='" + req.query.status + "';";
 	db.query(queryline,[],(err, result) => {
-		res.send(result)
-	})
+		res.send(result);
+	});
 }

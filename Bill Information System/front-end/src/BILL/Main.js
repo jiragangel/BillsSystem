@@ -481,7 +481,7 @@ class Search extends Component {
 		fetch(`http://localhost:3001/bills?key=${this.state.key}&value=${this.state.value}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
-			this.setState({ bills: result, key: "", billno: "", value: ""});
+			this.setState({ bills: result});
 			alert("Search Successful");
 		})
 		.catch((e) => { console.log(e); });
@@ -600,7 +600,7 @@ class Delete extends Component {
       alert("Add Successful");
     })
     .catch(function (error) {
-      alert(error);
+
     });
 
     window.location.reload();

@@ -15,6 +15,60 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO'*/;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+
+/*PROCEDURES*/
+
+delimiter //
+CREATE PROCEDURE Filebillsenator (
+empno varchar(10),
+billno varchar(10),
+name varchar(50),
+year int(4),
+status varchar(100),
+title varchar(100),
+summarydesc varchar(250),
+primaryC varchar(100),
+scope varchar(30),
+secondaryC varchar(100)
+)
+BEGIN
+insert into SENATOR_FILES values (empno, billno, year);
+insert into BILL values (billno, status, title, name, summarydesc, primaryC, scope, secondaryC, 1, empno, NULL, NULL);
+END
+//
+delimiter ;
+
+delimiter //
+CREATE PROCEDURE DeleteBill ( billnumber varchar(10) )
+  BEGIN
+    IF NOT (select Senator_flag from BILL where Billno=billnumber) is NULL THEN
+      delete from SENATOR_FILES where Billno=billnumber;
+    ELSE
+      delete from HOUSEMEMBER_FILES where Billno=billnumber;
+    END IF;
+    delete from BILL where Billno=billnumber;
+    delete from BILL_SUBJECT where Billno=billnumber;
+  END
+//
+delimiter ;
+
+delimiter //
+CREATE PROCEDURE DeleteSenator ( empno varchar(10) )
+  BEGIN
+    delete from SENATOR where Employeenumber=empno;
+    delete from SENATOR_COMMITTEE where Employeenumber=empno;
+  END
+//
+delimiter ;
+
+delimiter //
+CREATE PROCEDURE DeleteHouseMember ( empno varchar(10) )
+  BEGIN
+    delete from HOUSEMEMBER where Employeenumber=empno;
+    delete from HOUSEMEMBER_COMMITTEE where Employeenumber=empno;
+  END
+//
+delimiter ;
 --
 -- Table structure for table `BILL`
 --
@@ -167,7 +221,7 @@ CREATE TABLE `SENATOR` (
 
 LOCK TABLES `SENATOR` WRITE;
 /*!40000 ALTER TABLE `SENATOR` DISABLE KEYS */;
-INSERT INTO `SENATOR` VALUES ('0001','Aquilino Pimentel III'),('0002','Maria Lourdes Nancy Binay'),('0003','Joel Villanueva'),('0004','Leila De Lima'),('0005','Sherwin Gatchalian'),('0006','Joseph Victor G. Ejercito'),('0007','Ralph G. Recto'),('0008','Vicente C. Sotto III'),('0009','Franklin M. Drilon'),('0010','Sonny M. Angara'),('0011','Paolo Benigno Aquino'),('0012','Alan Peter S. Cayetano'),('0013','Manuel B. Villar Jr.'),('0014','Pia S. Cayetano'),('0015','Miriam Defensor Santiago'),('0016','Juan M. Flavier'),('0017','Jinggoy Ejercito Estrada'),('0018','Richard J. Gordon'),('0019','Ramon B. Magsaysay'),('0020','Edgardo J. Angara'),('0021','Xaquilino Pimentel III'),('0022','Xaria Lourdes Nancy Binay'),('0023','Xoel Villanueva'),('0024','Xeila De Lima'),('0025','Xerwin Gatchalian'),('0026','Xoseph Victor G. Ejercito'),('0027','Xalph G. Recto'),('0028','Xicente C. Sotto III'),('0029','Xanklin M. Drilon'),('0030','Xonny M. Angara'),('0031','Xaolo Benigno Aquino'),('0032','Xalan Peter S. Cayetano'),('0033','Xanuel B. Villar Jr.'),('0034','Xia S. Cayetano'),('0035','Xiriam Defensor Santiago'),('0036','Xuan M. Flavier'),('0037','Xinggoy Ejercito Estrada'),('0038','Xichard J. Gordon'),('0039','Xamon B. Magsaysay'),('0040','Xedgardo J. Angara'),('0041','Waquilino Pimentel III'),('0042','Waria Lourdes Nancy Binay'),('0043','Woel Villanueva'),('0044','Weila De Lima'),('0045','Wherwin Gatchalian'),('0046','Woseph Victor G. Ejercito'),('0047','Walph G. Recto'),('0048','Wicente C. Sotto III'),('0049','Wanklin M. Drilon'),('0050','Wonny M. Angara'),('0051','Waolo Benigno Aquino'),('0052','Walan Peter S. Cayetano'),('0053','Wanuel B. Villar Jr.'),('0054','Wia S. Cayetano'),('0055','Wiriam Defensor Santiago'),('0056','Wuan M. Flavier'),('0057','Winggoy Ejercito Estrada'),('0058','Wichard J. Gordon'),('0060','Wedgardo J. Angara'),('0061','Yaquilino Pimentel III'),('0062','Yaria Lourdes Nancy Binay'),('0063','Yoel Villanueva'),('0064','Yeila De Lima'),('0065','Yherwin Gatchalian'),('0066','Yoseph Victor G. Ejercito'),('0067','Yalph G. Recto'),('0068','Yicente C. Sotto III'),('0069','Yanklin M. Drilon'),('0070','Yonny M. Angara'),('0071','Yaolo Benigno Aquino'),('0072','Yalan Peter S. Cayetano'),('0073','Yanuel B. Villar Jr.'),('0074','Yia S. Cayetano'),('0075','Yiriam Defensor Santiago'),('0076','Yuan M. Flavier'),('0077','Yinggoy Ejercito Estrada'),('0078','Yichard J. Gordon'),('0079','Yamon B. Magsaysay'),('0080','Yedgardo J. Angara'),('0081','Zaquilino Pimentel III'),('0082','Zaria Lourdes Nancy Binay'),('0083','Zoel Villanueva'),('0084','Zeila De Lima'),('0085','Zherwin Gatchalian'),('0086','Zoseph Victor G. Ejercito'),('0087','Zalph G. Recto'),('0088','Zicente C. Sotto III'),('0089','Zanklin M. Drilon'),('0090','Zonny M. Angara'),('0091','Zaolo Benigno Aquino'),('0092','Zalan Peter S. Cayetano'),('0093','Zanuel B. Villar Jr.'),('0094','Zia S. Cayetano'),('0095','Ziriam Defensor Santiago'),('0096','Zuan M. Flavier'),('0097','Zinggoy Ejercito Estrada'),('0098','Zichard J. Gordon'),('0099','Zamon B. Magsaysay'),('0100','Zedgardo J. Angara'),('059','Wamon B. Magsaysay');
+INSERT INTO `SENATOR` VALUES ('0001','Aquilino Pimentel III'),('0002','Maria Lourdes Nancy Binay'),('0003','Joel Villanueva'),('0004','Leila De Lima'),('0005','Sherwin Gatchalian'),('0006','Joseph Victor G. Ejercito'),('0007','Ralph G. Recto'),('0008','Vicente C. Sotto III'),('0009','Franklin M. Drilon'),('0010','Sonny M. Angara'),('0011','Paolo Benigno Aquino'),('0012','Alan Peter S. Cayetano'),('0013','Manuel B. Villar Jr.'),('0014','Pia S. Cayetano'),('0015','Miriam Defensor Santiago'),('0016','Juan M. Flavier'),('0017','Jinggoy Ejercito Estrada'),('0018','Richard J. Gordon'),('0019','Ramon B. Magsaysay'),('0020','Edgardo J. Angara'),('0021','Xaquilino Pimentel III'),('0022','Xaria Lourdes Nancy Binay'),('0023','Xoel Villanueva'),('0024','Xeila De Lima'),('0025','Xerwin Gatchalian'),('0026','Xoseph Victor G. Ejercito'),('0027','Xalph G. Recto'),('0028','Xicente C. Sotto III'),('0029','Xanklin M. Drilon'),('0030','Xonny M. Angara'),('0031','Xaolo Benigno Aquino'),('0032','Xalan Peter S. Cayetano'),('0033','Xanuel B. Villar Jr.'),('0034','Xia S. Cayetano'),('0035','Xiriam Defensor Santiago'),('0036','Xuan M. Flavier'),('0037','Xinggoy Ejercito Estrada'),('0038','Xichard J. Gordon'),('0039','Xamon B. Magsaysay'),('0040','Xedgardo J. Angara'),('0041','Waquilino Pimentel III'),('0042','Waria Lourdes Nancy Binay'),('0043','Woel Villanueva'),('0044','Weila De Lima'),('0045','Wherwin Gatchalian'),('0046','Woseph Victor G. Ejercito'),('0047','Walph G. Recto'),('0048','Wicente C. Sotto III'),('0049','Wanklin M. Drilon'),('0050','Wonny M. Angara'),('0051','Waolo Benigno Aquino'),('0052','Walan Peter S. Cayetano'),('0053','Wanuel B. Villar Jr.'),('0054','Wia S. Cayetano'),('0055','Wiriam Defensor Santiago'),('0056','Wuan M. Flavier'),('0057','Winggoy Ejercito Estrada'),('0058','Wichard J. Gordon'),('0060','Wedgardo J. Angara'),('0061','Yaquilino Pimentel III'),('0062','Yaria Lourdes Nancy Binay'),('0063','Yoel Villanueva'),('0064','Yeila De Lima'),('0065','Yherwin Gatchalian'),('0066','Yoseph Victor G. Ejercito'),('0067','Yalph G. Recto'),('0068','Yicente C. Sotto III'),('0069','Yanklin M. Drilon'),('0070','Yonny M. Angara'),('0071','Yaolo Benigno Aquino'),('0072','Yalan Peter S. Cayetano'),('0073','Yanuel B. Villar Jr.'),('0074','Yia S. Cayetano'),('0075','Yiriam Defensor Santiago'),('0076','Yuan M. Flavier'),('0077','Yinggoy Ejercito Estrada'),('0078','Yichard J. Gordon'),('0079','Yamon B. Magsaysay'),('0080','Yedgardo J. Angara'),('0081','Zaquilino Pimentel III'),('0082','Zaria Lourdes Nancy Binay'),('0083','Zoel Villanueva'),('0084','Zeila De Lima'),('0085','Zherwin Gatchalian'),('0086','Zoseph Victor G. Ejercito'),('0087','Zalph G. Recto'),('0088','Zicente C. Sotto III'),('0089','Zanklin M. Drilon'),('0090','Zonny M. Angara'),('0091','Zaolo Benigno Aquino'),('0092','Zalan Peter S. Cayetano'),('0093','Zanuel B. Villar Jr.'),('0094','Zia S. Cayetano'),('0095','Ziriam Defensor Santiago'),('0096','Zuan M. Flavier'),('0097','Zinggoy Ejercito Estrada'),('0098','Zichard J. Gordon'),('0099','Zamon B. Magsaysay'),('0100','Zedgardo J. Angara'),('0059','Wamon B. Magsaysay');
 /*!40000 ALTER TABLE `SENATOR` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,59 +275,6 @@ INSERT INTO `SENATOR_FILES` VALUES ('0002','SB 1598',2017),('0002','SB 9598',201
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*PROCEDURES*/
-
-delimiter //
-CREATE PROCEDURE Filebillsenator (
-empno varchar(10),
-billno varchar(10),
-name varchar(50),
-year int(4),
-status varchar(100),
-title varchar(100),
-summarydesc varchar(250),
-primaryC varchar(100),
-scope varchar(30),
-secondaryC varchar(100)
-)
-BEGIN
-insert into SENATOR_FILES values (empno, billno, year);
-insert into BILL values (billno, status, title, name, summarydesc, primaryC, scope, secondaryC, 1, empno, NULL, NULL);
-END
-//
-delimiter ;
-
-delimiter //
-CREATE PROCEDURE DeleteBill ( billnumber varchar(10) )
-  BEGIN
-    IF NOT (select Senator_flag from BILL where Billno=billnumber) is NULL THEN
-      delete from SENATOR_FILES where Billno=billnumber;
-    ELSE
-      delete from HOUSEMEMBER_FILES where Billno=billnumber;
-    END IF;
-    delete from BILL where Billno=billnumber;
-    delete from BILL_SUBJECT where Billno=billnumber;
-  END
-//
-delimiter ;
-
-delimiter //
-CREATE PROCEDURE DeleteSenator ( empno varchar(10) )
-  BEGIN
-    delete from SENATOR where Employeenumber=empno;
-    delete from SENATOR_COMMITTEE where Employeenumber=empno;
-  END
-//
-delimiter ;
-
-delimiter //
-CREATE PROCEDURE DeleteHouseMember ( empno varchar(10) )
-  BEGIN
-    delete from HOUSEMEMBER where Employeenumber=empno;
-    delete from HOUSEMEMBER_COMMITTEE where Employeenumber=empno;
-  END
-//
-delimiter ;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

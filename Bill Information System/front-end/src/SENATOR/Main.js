@@ -147,7 +147,7 @@ class DeleteSenator extends Component {
       alert("Delete Successful");
     })
     .catch(function (error) {
-      alert(error);
+
     });
     window.location.reload();
   }
@@ -248,7 +248,7 @@ class UpdateSenator extends Component {
         <h3>Update</h3>
         <form>
           <select onChange={this.handleEmpNoChange}>
-          <option selected disabled>Employee Number</option>
+          <option selected disabled>Employee number</option>
           {
             this.state.senators.map((b) => {
               return(
@@ -263,7 +263,7 @@ class UpdateSenator extends Component {
             <option>Committee</option>
           </select>
           <textarea onChange={this.handleValueChange} placeholder="Enter new value"></textarea>
-          <input type="button" onClick={this.submitUpdate} value="Update Bill"></input>
+          <input type="button" onClick={this.submitUpdate} value="Update Senator"></input>
         </form>
       </fieldset>
     )
@@ -319,7 +319,7 @@ class SearchSenator extends Component {
 		fetch(`http://localhost:3001/senators?key=${this.state.key}&value=${this.state.value}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
-			this.setState({ senators: result, key: "", billno: "", value: ""});
+			this.setState({ senators: result});
 			alert("Search Successful");
 		})
 		.catch((e) => { console.log(e); });
@@ -342,12 +342,12 @@ class SearchSenator extends Component {
         <form>
           <select onChange={this.handleKeyChange}>
             <option selected disabled>Field to search</option>
-            <option>Employee number</option>
+            <option>Employeenumber</option>
             <option>Name</option>
             <option>Committee</option>
           </select>
           <textarea onChange={this.handleValueChange} placeholder="Value to search"></textarea>
-          <input type="button" onClick={this.submitClicked} value="Search Bill"></input>
+          <input type="button" onClick={this.submitClicked} value="Search Senator"></input>
         </form>
       </fieldset>
       <div id="searchResults">

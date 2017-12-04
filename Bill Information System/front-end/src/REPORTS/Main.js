@@ -1028,7 +1028,7 @@ class HouseThird extends Component {
 
   componentDidMount(){
     let string = "Approved on Third Reading by the House of Representatives"
-		fetch(`http://localhost3001/passed?status=${string}`)
+		fetch(`http://localhost:3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({

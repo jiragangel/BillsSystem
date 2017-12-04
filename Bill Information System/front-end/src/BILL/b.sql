@@ -422,7 +422,7 @@ insert into BILL_SUBJECT values(
   "Condonation"
 );
 
-FileBillSenator (
+call FileBillSenator (
   "0003",
   "SB 1614",
   2017,

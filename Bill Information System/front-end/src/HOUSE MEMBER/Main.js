@@ -150,7 +150,7 @@ class DeleteHouseMember extends Component {
       alert("Delete success");
     })
     .catch(function (error) {
-      alert(error);
+
     });
     window.location.reload();
   }
@@ -267,7 +267,7 @@ class UpdateHouseMember extends Component {
             <option>Typeofrepresentative</option>
           </select>
           <textarea onChange={this.handleValueChange} placeholder="Enter new value"></textarea>
-          <input type="button" onClick={this.submitUpdate} value="Update Bill"></input>
+          <input type="button" onClick={this.submitUpdate} value="Update House Member"></input>
         </form>
       </fieldset>
     )
@@ -323,7 +323,7 @@ class SearchHouseMember extends Component {
 		fetch(`http://localhost:3001/housemembers?key=${this.state.key}&value=${this.state.value}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
-			this.setState({ housemembers: result, key: "", billno: "", value: ""});
+			this.setState({ housemembers: result});
 			alert("Search Successful");
 		})
 		.catch((e) => { console.log(e); });
@@ -346,12 +346,13 @@ class SearchHouseMember extends Component {
         <form>
           <select onChange={this.handleKeyChange}>
             <option selected disabled>Field to search</option>
+            <option>Employeenumber</option>
             <option>Name</option>
             <option>Committee</option>
             <option>Typeofrepresentative</option>
           </select>
           <textarea onChange={this.handleValueChange} placeholder="Value to search"></textarea>
-          <input type="button" onClick={this.submitClicked} value="Search Bill"></input>
+          <input type="button" onClick={this.submitClicked} value="Search House Member"></input>
         </form>
       </fieldset>
       <div id="searchResults">
