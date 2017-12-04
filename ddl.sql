@@ -86,9 +86,9 @@ year int(4),
 status varchar(100),
 title varchar(100),
 summarydesc varchar(250),
-primaryC varchar(50),
-scope varchar(10),
-secondaryC varchar(50)
+primaryC varchar(100),
+scope varchar(30),
+secondaryC varchar(100)
 )
 BEGIN
 insert into HOUSEMEMBER_FILES values (empno, billno, year);
@@ -106,9 +106,9 @@ year int(4),
 status varchar(100),
 title varchar(100),
 summarydesc varchar(250),
-primaryC varchar(50),
-scope varchar(10),
-secondaryC varchar(50)
+primaryC varchar(100),
+scope varchar(30),
+secondaryC varchar(100)
 )
 BEGIN
 insert into SENATOR_FILES values (empno, billno, year);
