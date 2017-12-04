@@ -11,7 +11,7 @@ create table SENATOR (
 
 create table SENATOR_COMMITTEE(
   Employeenumber VARCHAR(10),
-  Committee VARCHAR(50),
+  Committee VARCHAR(100),
   CONSTRAINT SENATOR_POSITION_enamecom_pk PRIMARY KEY(Employeenumber,Committee)
 );
 
@@ -31,7 +31,7 @@ create table HOUSEMEMBER(
 
 create table HOUSEMEMBER_COMMITTEE(
   Employeenumber VARCHAR(10),
-  Committee VARCHAR(50),
+  Committee VARCHAR(100),
   CONSTRAINT SENATOR_POSITION_enamecom_pk PRIMARY KEY(Employeenumber,Committee)
 );
 
@@ -63,13 +63,13 @@ create table SENATOR_APPROVES(
 
 create table BILL(
   Billno varchar(10),
-  Status varchar(50),
+  Status varchar(100),
   Title varchar(100),
   Name varchar(50),
   Summarydesc varchar(250),
-  Primarycommittee varchar(50),
+  Primarycommittee varchar(100),
   Scope varchar(10),
-  Secondarycommittee varchar(50),
+  Secondarycommittee varchar(100),
   Senator_flag int(1),
   Semployeenumber varchar(10),
   Housemem_flag int(1),
@@ -83,7 +83,7 @@ empno varchar(10),
 billno varchar(10),
 name varchar(50),
 year int(4),
-status varchar(50),
+status varchar(100),
 title varchar(100),
 summarydesc varchar(250),
 primaryC varchar(50),
@@ -103,7 +103,7 @@ empno varchar(10),
 billno varchar(10),
 name varchar(50),
 year int(4),
-status varchar(50),
+status varchar(100),
 title varchar(100),
 summarydesc varchar(250),
 primaryC varchar(50),

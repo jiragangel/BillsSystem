@@ -222,12 +222,7 @@ exports.addHouseMember = (req, res, next) => {
 }
 
 exports.passed = (req, res, next) => {
-	let queryline;
-	if (req.query.type === "Senate"){
-		queryline = "select * from BILL where Senator_flag IS NOT NULL and Status='" + req.query.status + "';";
-	}else{
-		queryline = "select * from BILL where Housemem_flag IS NOT NULL and Status='" + req.query.status + "';";
-	}
+	let queryline = "select * from BILL where Status='" + req.query.status + "';";
 	console.log(queryline);
 	db.query(queryline,[],(err, result) => {
 		res.send(result)

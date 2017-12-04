@@ -36,7 +36,6 @@ class Main extends Component {
     this.setState({
       clicked: e.target.value
     })
-    this.forceUpdate();
   }
 
   render() {
@@ -81,8 +80,8 @@ class FileBillSenator extends Component {
       if (name === this.state.senators[i].Name){
         return this.state.senators[i].Employeenumber
       }
-      return;
     }
+    return;
   }
 
   handleSetEmpNo(e){
@@ -220,7 +219,17 @@ class FileBillHouseMem extends Component {
     };
   }
 
+  getEmpno(name){
+    for (let i = 0 ; i < this.state.housemems.length ; i++){
+      if (name === this.state.housemems[i].Name){
+        return this.state.housemems[i].Employeenumber
+      }
+    }
+    return;
+  }
+
   handleSetEmpNo(e){
+    console.log("EMPNO: " + this.getEmpno(e.target.value));
     this.setState({
       empno: this.getEmpno(e.target.value),
       name: e.target.value
@@ -273,15 +282,6 @@ class FileBillHouseMem extends Component {
     this.setState({
       summdesc: e.target.value
     });
-  }
-
-  getEmpno(name){
-    for (let i = 0 ; i < this.state.housemems.length ; i++){
-      if (name === this.state.housemems[i].Name){
-        return this.state.housemems[i].Employeenumber
-      }
-      return;
-    }
   }
 
   componentDidMount(){
@@ -602,12 +602,15 @@ class Delete extends Component {
     .catch(function (error) {
       alert(error);
     });
+
+    window.location.reload();
   }
 
   componentDidMount(){
   		fetch(`http://localhost:3001/getAllbills`)
   		.then((response) => { return response.json()})
   		.then((result) => {
+        console.log(result);
         this.setState({
           bills: result
         })

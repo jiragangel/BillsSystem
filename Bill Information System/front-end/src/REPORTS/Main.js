@@ -30,7 +30,7 @@ class Main extends Component {
     autobind(this);
 
     this.state = {
-      clicked: ""
+      clicked: "View all bills filed at the Senate on a specific year."
     }
   }
 
@@ -527,7 +527,8 @@ class SenateFirst extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=Senate&status=First%20Reading`)
+    let string = "Approved on First Reading by the Senate"
+		fetch(`http://localhost:3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -549,6 +550,7 @@ class SenateFirst extends Component {
   render(){
     return(
       <div>
+        <h4>Bills passed at the Senate on First Reading</h4>
         {this.state.bills.map((bill) => {
           return(
           <table key={this.state.bills.indexOf(bill)}><tbody>
@@ -624,7 +626,8 @@ class SenateSecond extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=Senate&status=Second%20Reading`)
+    let string = "Approved on Second Reading by the Senate"
+		fetch(`http://localhost:3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -646,6 +649,7 @@ class SenateSecond extends Component {
   render(){
     return(
       <div>
+        <h4>Bills passed at the Senate on Second Reading</h4>
         {this.state.bills.map((bill) => {
           return(
             <table key={this.state.bills.indexOf(bill)}><tbody>
@@ -722,7 +726,8 @@ class SenateThird extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=Senate&status=Third%20Reading`)
+    let string = "Approved on Third Reading by the Senate"
+		fetch(`http://localhost:3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -744,6 +749,7 @@ class SenateThird extends Component {
   render(){
     return(
       <div>
+        <h4>Bills passed at the Senate on Third Reading</h4>
         {this.state.bills.map((bill) => {
           return(
             <table key={this.state.bills.indexOf(bill)}><tbody>
@@ -821,7 +827,8 @@ class HouseFirst extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=House&status=First%20Reading`)
+    let string = "Approved on First Reading by the House of Representatives"
+		fetch(`http://localhost:3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -843,6 +850,7 @@ class HouseFirst extends Component {
   render(){
     return(
       <div>
+        <h4>Bills passed at the House on First Reading</h4>
         {this.state.bills.map((bill) => {
           return(
             <table key={this.state.bills.indexOf(bill)}><tbody>
@@ -919,7 +927,8 @@ class HouseSecond extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=House&status=Second%20Reading`)
+    let string = "Approved on Second Reading by the House of Representatives"
+		fetch(`http://localhost:3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
@@ -941,6 +950,7 @@ class HouseSecond extends Component {
   render(){
     return(
       <div>
+        <h4>Bills passed at the House on Second Reading</h4>
         {this.state.bills.map((bill) => {
           return(
             <table key={this.state.bills.indexOf(bill)}><tbody>
@@ -1017,14 +1027,15 @@ class HouseThird extends Component {
   }
 
   componentDidMount(){
-		fetch(`http://localhost:3001/passed?type=House&status=Third%20Reading`)
+    let string = "Approved on Third Reading by the House of Representatives"
+		fetch(`http://localhost3001/passed?status=${string}`)
 		.then((response) => { return response.json()})
 		.then((result) => {
       this.setState({
         bills: result
       })
 		})
-		.catch((e) => { console.log(e); });
+		.catch((e) => { alert(e); });
 
     fetch(`http://localhost:3001/getSubjects`)
 		.then((response) => { return response.json()})
@@ -1039,6 +1050,7 @@ class HouseThird extends Component {
   render(){
     return(
       <div>
+        <h4>Bills passed at the House on Third Reading</h4>
         {this.state.bills.map((bill) => {
           return(
             <table key={this.state.bills.indexOf(bill)}><tbody>
