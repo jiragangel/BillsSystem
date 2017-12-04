@@ -108,6 +108,10 @@ exports.updateBills = (req, res, next) => {
 	if (req.body.key==="Subjects"){
 		queryline2="delete from BILL_SUBJECT where Billno='"+ req.body.billno+"';";
 		db.query(queryline2,[],(err,result)=>{
+			if (err) {
+				res.send(err);
+				return
+			}
 		});
 		let arrayofSubjects = req.body.value.split(';');
 		for (let i = 0 ; i < arrayofSubjects.length ; i++){
@@ -134,6 +138,10 @@ exports.updateSenator = (req, res, next) => {
 	if (req.body.key==="Committee"){
 		queryline2="delete from SENATOR_COMMITTEE where Employeenumber='"+ req.body.empno+"';";
 		db.query(queryline2,[],(err,result)=>{
+			if (err){
+				res.send(err);
+				return;
+			}
 		});
 		let arrayofCommittee = req.body.value.split(';');
 		for (let i = 0 ; i < arrayofCommittee.length ; i++){
